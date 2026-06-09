@@ -1,6 +1,6 @@
 {
   "modules": [
-    "/ecu/edc15c4/module.json",
+    "/ecu/ms41/module.json",
     "/ecu/rusefi/module.json"
   ]
 }
