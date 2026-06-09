@@ -1,59 +1,181 @@
 {
-"name": "EDC15 Toolbox",
-"version": "0.1",
-"author": "MARS OS",
+  "name": "EDC15 Toolbox",
+  "version": "0.2",
+  "author": "MARS OS",
+  "transport": "KLINE",
+  "ecu_family": "EDC15",
+  "default_baud": 10400,
 
-"transport": "KLINE",
+  "menu": [
+    {
+      "title": "Read Info",
+      "action": "read_info"
+    },
+    {
+      "title": "Read Flash",
+      "action": "read_flash"
+    },
+    {
+      "title": "Write Flash",
+      "action": "write_flash"
+    },
+    {
+      "title": "Write ORI",
+      "action": "write_ori"
+    },
+    {
+      "title": "Write MOD",
+      "action": "write_mod"
+    },
+    {
+      "title": "Add To DB",
+      "action": "add_db"
+    }
+  ],
 
-"ecu_family": "EDC15",
+  "ecu_types": [
+    {
+      "name": "EDC15P",
+      "id": 0,
+      "key1": "0xDA1C",
+      "key2": "0xF781"
+    },
+    {
+      "name": "EDC15V",
+      "id": 1,
+      "key1": "0x508D",
+      "key2": "0xA647"
+    },
+    {
+      "name": "EDC15VM+",
+      "id": 2,
+      "key1": "0xF25E",
+      "key2": "0x6533"
+    }
+  ],
 
-"menu": [
-{
-"title": "Read Info",
-"action": "read_info"
-},
-{
-"title": "Read Flash",
-"action": "read_flash"
-},
-{
-"title": "Write Flash",
-"action": "write_flash"
-},
-{
-"title": "Write ORI",
-"action": "write_ori"
-},
-{
-"title": "Write MOD",
-"action": "write_mod"
-},
-{
-"title": "Add To DB",
-"action": "add_db"
+  "actions": {
+    "read_info": {
+      "title": "Read ECU Info",
+      "steps": [
+        {
+          "type": "connect_edc15"
+        },
+        {
+          "type": "read_memory",
+          "start": "0x72000",
+          "end": "0x77000",
+          "block_size": 254,
+          "output": "temp.bin"
+        },
+        {
+          "type": "search_ascii",
+          "file": "temp.bin",
+          "patterns": ["EDC", "TDI"]
+        }
+      ]
+    },
+
+    "read_flash": {
+      "title": "Read Flash",
+      "steps": [
+        {
+          "type": "connect_edc15"
+        },
+        {
+          "type": "read_memory",
+          "start": "0x00000",
+          "end": "0x7FEE2",
+          "block_size": 254,
+          "output": "edc15rd.skf"
+        },
+        {
+          "type": "close_ecu"
+        }
+      ]
+    },
+
+    "write_flash": {
+      "title": "Write Flash",
+      "steps": [
+        {
+          "type": "require_file",
+          "file": "edc15rd.skf"
+        },
+        {
+          "type": "connect_edc15"
+        },
+        {
+          "type": "erase_flash",
+          "command": "02 A5 0F B6",
+          "wait_ms": 4000
+        },
+        {
+          "type": "write_memory",
+          "start": "0x7C000",
+          "end": "0x7FFFF",
+          "block_size": 250,
+          "source": "edc15rd.skf",
+          "label": "Writing boot"
+        },
+        {
+          "type": "write_memory",
+          "start": "0x00000",
+          "end": "0x7BFFF",
+          "block_size": 250,
+          "source": "edc15rd.skf",
+          "label": "Writing flash"
+        },
+        {
+          "type": "close_ecu"
+        }
+      ]
+    },
+
+    "write_ori": {
+      "title": "Write ORI",
+      "steps": [
+        {
+          "type": "select_db_file",
+          "folder": "ORI"
+        },
+        {
+          "type": "run_action",
+          "action": "write_flash"
+        }
+      ]
+    },
+
+    "write_mod": {
+      "title": "Write MOD",
+      "steps": [
+        {
+          "type": "select_db_file",
+          "folder": "MOD"
+        },
+        {
+          "type": "run_action",
+          "action": "write_flash"
+        }
+      ]
+    },
+
+    "add_db": {
+      "title": "Add File To DB",
+      "steps": [
+        {
+          "type": "require_file",
+          "file": "edc15rd.skf"
+        },
+        {
+          "type": "scan_ecu_info",
+          "file": "edc15rd.skf",
+          "patterns": ["EDC", "TDI"]
+        },
+        {
+          "type": "create_db_entry"
+        }
+      ]
+    }
+  }
 }
-],
-
-"ecu_types": [
-{
-"name": "EDC15P",
-"id": 0
-},
-{
-"name": "EDC15V",
-"id": 1
-},
-{
-"name": "EDC15VM+",
-"id": 2
-}
-],
-
-"files": [
-{
-"name": "edc15rd.skf",
-"required": true
-}
-]
-}
-
