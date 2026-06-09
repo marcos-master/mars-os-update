@@ -1,1 +1,8 @@
-{"brands":[{"title":"BMW","index":"/indexes/bmw_ecu.json"},{"title":"Universal","index":"/indexes/universal_ecu.json"}]}
+{
+  "brands": [
+    { "title": "BMW", "index": "/indexes/bmw_ecu.json" },
+    { "title": "VAG", "index": "/indexes/vag_ecu.json" },
+    { "title": "VAZ", "index": "/indexes/vaz_ecu.json" },
+    { "title": "Universal", "index": "/indexes/universal_ecu.json" }
+  ]
+}
