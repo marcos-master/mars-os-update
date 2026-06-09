@@ -1,0 +1,118 @@
+{
+  "name": "VAG EDC16",
+  "type": "ecu",
+  "brand": "VAG",
+  "family": "EDC16",
+  "version": "0.1",
+  "transport": "KLINE",
+  "source": "EDC16 Toolbox by Bi0H4z4rD",
+  "description": "VAG EDC16 K-Line module placeholder based on uploaded EDC16 Toolbox logic",
+
+  "supported_ecu_types": [
+    { "name": "EDC16U1", "id": 0, "flash_type": "29BL802CB" },
+    { "name": "EDC16U31", "id": 1, "flash_type": "M58BW016xB" },
+    { "name": "EDC16U34", "id": 1, "flash_type": "M58BW016xB" },
+    { "name": "EDC16CP34", "id": 2, "flash_type": "M58BW016xB" }
+  ],
+
+  "connection": {
+    "protocol": "KLINE_KWP2000",
+    "init": ["short_burst", "slow_init"],
+    "default_baud": 10400,
+    "supported_baud": [10400, 124800, 250000],
+    "tester_addr": "0xF1",
+    "ecu_addr": "0x10",
+    "checksum": "iso_additive"
+  },
+
+  "menu": [
+    { "title": "Read Info", "action": "read_info" },
+    { "title": "Read VIN", "action": "read_vin" },
+    { "title": "Read Flash", "action": "read_flash" },
+    { "title": "Write Flash", "action": "write_flash" },
+    { "title": "Reset EEPROM Counter", "action": "reset_eeprom_counter" },
+    { "title": "ECU Type", "action": "select_ecu_type" }
+  ],
+
+  "actions": {
+    "select_ecu_type": {
+      "title": "Select EDC16 ECU Type",
+      "steps": [
+        { "type": "select_option", "label": "ECU Type", "store": "ecu_type", "options": ["EDC16U1", "EDC16U31", "EDC16U34", "EDC16CP34"] }
+      ]
+    },
+
+    "connect": {
+      "title": "Connect EDC16",
+      "steps": [
+        { "type": "kline_config", "k_in": "RX", "k_out": "TX", "rx_enable": true },
+        { "type": "kline_init", "method": "short_burst", "baud": 10400 },
+        { "type": "kwp_send", "label": "Common Start", "bytes": "81 10 F1 81" },
+        { "type": "kwp_expect", "bytes": "83 F1 10 C1 EF 8F" }
+      ]
+    },
+
+    "read_info": {
+      "title": "Read ECU Info",
+      "steps": [
+        { "type": "run_action", "action": "connect" },
+        { "type": "security_access", "level": 3, "algorithm": "edc16_lvl3" },
+        { "type": "kwp_send", "label": "Request Info", "bytes": "82 10 F1 1A 80" },
+        { "type": "kwp_read", "store": "info_raw" },
+        { "type": "parse_edc16_info", "source": "info_raw", "fields": { "sw": "87:98", "engine": "147:158", "vin": "73:84", "sw_date": "32:37" } }
+      ]
+    },
+
+    "read_vin": {
+      "title": "Read VIN",
+      "steps": [
+        { "type": "run_action", "action": "read_info" },
+        { "type": "show_field", "source": "vin" }
+      ]
+    },
+
+    "read_flash": {
+      "title": "Read Flash",
+      "steps": [
+        { "type": "run_action", "action": "connect" },
+        { "type": "security_access", "level": 3, "algorithm": "edc16_lvl3" },
+        { "type": "set_baud", "try": [250000, 124800] },
+        { "type": "kwp_send", "label": "Start Read", "bytes": "88 10 F1 35 18 00 00 00 08 00 00" },
+        { "type": "kwp_expect", "bytes": "82 F1 10 75 FF" },
+        { "type": "read_flash", "protocol": "edc16_kline", "start": "0x000000", "end": "0x07FFFF", "block_size": 254, "output": "EDC16RD.skf" }
+      ]
+    },
+
+    "write_flash": {
+      "title": "Write Flash",
+      "steps": [
+        { "type": "select_file", "label": "Select EDC16 SKF/BIN", "store": "flash_file", "filter": ".skf,.bin" },
+        { "type": "backup_file", "file_from": "flash_file", "suffix": ".bak" },
+        { "type": "kline_init", "method": "slow_init", "baud": 10400 },
+        { "type": "security_access", "level": 1, "algorithm": "edc16_lvl1" },
+        { "type": "set_baud", "try": [250000, 124800] },
+        { "type": "prepare_edc16_file", "file_from": "flash_file", "outputs": ["EDC16RD.CR1", "EDC16RD.CR2"] },
+        { "type": "erase_flash", "protocol": "edc16_kline" },
+        { "type": "write_flash", "protocol": "edc16_kline", "source": "EDC16RD.CR2", "block": 7 },
+        { "type": "write_flash", "protocol": "edc16_kline", "source": "EDC16RD.CR1", "block": 6 },
+        { "type": "close_ecu" }
+      ]
+    },
+
+    "reset_eeprom_counter": {
+      "title": "Reset EEPROM Counter",
+      "steps": [
+        { "type": "run_action", "action": "connect" },
+        { "type": "security_access", "level": 3, "algorithm": "edc16_lvl3" },
+        { "type": "set_baud", "try": [250000, 124800] },
+        { "type": "read_flash", "protocol": "edc16_kline", "start": "0x000000", "end": "0x1C0000", "block_size": 254, "output": "FULL.skf" },
+        { "type": "patch_edc16_eeprom_counter", "file": "FULL.skf" }
+      ]
+    }
+  },
+
+  "notes": [
+    "Current MARS OS firmware may show this module as menu only until K-Line/KWP2000 executor is implemented.",
+    "Uploaded source uses EDC16 CommonStart, LVL1/LVL3 security, speed switch to 124800/250000, read/write flash blocks and EEPROM counter reset."
+  ]
+}
