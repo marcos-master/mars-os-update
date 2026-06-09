@@ -1,27 +1,59 @@
 {
-  "name": "BMW MS41",
-  "transport": "KLINE",
-  "baud": 10400,
-  "menu": [
-    {
-      "title": "Read Errors",
-      "action": "read_errors"
-    },
-    {
-      "title": "Clear Errors",
-      "action": "clear_errors"
-    },
-    {
-      "title": "Data List",
-      "action": "data_list"
-    },
-    {
-      "title": "Read Flash",
-      "action": "read_flash"
-    },
-    {
-      "title": "Write Flash",
-      "action": "write_flash"
-    }
-  ]
+"name": "EDC15 Toolbox",
+"version": "0.1",
+"author": "MARS OS",
+
+"transport": "KLINE",
+
+"ecu_family": "EDC15",
+
+"menu": [
+{
+"title": "Read Info",
+"action": "read_info"
+},
+{
+"title": "Read Flash",
+"action": "read_flash"
+},
+{
+"title": "Write Flash",
+"action": "write_flash"
+},
+{
+"title": "Write ORI",
+"action": "write_ori"
+},
+{
+"title": "Write MOD",
+"action": "write_mod"
+},
+{
+"title": "Add To DB",
+"action": "add_db"
 }
+],
+
+"ecu_types": [
+{
+"name": "EDC15P",
+"id": 0
+},
+{
+"name": "EDC15V",
+"id": 1
+},
+{
+"name": "EDC15VM+",
+"id": 2
+}
+],
+
+"files": [
+{
+"name": "edc15rd.skf",
+"required": true
+}
+]
+}
+
