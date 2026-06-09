@@ -1,0 +1,8 @@
+{
+  "items": [
+    { "label": "RPM", "pid": "rpm", "unit": "rpm" },
+    { "label": "Coolant Temp", "pid": "clt", "unit": "C" },
+    { "label": "Throttle", "pid": "tps", "unit": "%" },
+    { "label": "Battery", "pid": "vbat", "unit": "V" }
+  ]
+}

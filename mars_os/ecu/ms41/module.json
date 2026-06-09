@@ -1,0 +1,27 @@
+{
+  "name": "BMW MS41",
+  "transport": "KLINE",
+  "baud": 10400,
+  "menu": [
+    {
+      "title": "Read Errors",
+      "action": "read_errors"
+    },
+    {
+      "title": "Clear Errors",
+      "action": "clear_errors"
+    },
+    {
+      "title": "Data List",
+      "action": "data_list"
+    },
+    {
+      "title": "Read Flash",
+      "action": "read_flash"
+    },
+    {
+      "title": "Write Flash",
+      "action": "write_flash"
+    }
+  ]
+}
