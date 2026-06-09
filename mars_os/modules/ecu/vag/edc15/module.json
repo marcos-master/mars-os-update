@@ -1,0 +1,33 @@
+{
+  "name": "VAG EDC15",
+  "type": "ecu",
+  "brand": "VAG",
+  "family": "EDC15",
+  "version": "0.1",
+  "transport": "KLINE",
+  "default_baud": 10400,
+  "high_speed_baud": 124800,
+  "source": "EDC15 Toolbox V0.4",
+  "supported_ecu_types": [
+    { "name": "EDC15P/P+", "id": 0, "flash_size": "512KB", "key1": "0xDA1C", "key2": "0xF781" },
+    { "name": "EDC15V", "id": 1, "flash_size": "512KB", "key1": "0x508D", "key2": "0xA647" },
+    { "name": "EDC15VM+", "id": 2, "flash_size": "512KB", "key1": "0xF25E", "key2": "0x6533" }
+  ],
+  "warning": "EDC15VM 1MB flash is not supported yet",
+  "menu": [
+    { "title": "Read Info", "action": "read_info" },
+    { "title": "Read Flash", "action": "read_flash" },
+    { "title": "Write Flash", "action": "write_flash" },
+    { "title": "Add To DB", "action": "add_db" },
+    { "title": "Write ORI", "action": "write_ori" },
+    { "title": "Write MOD", "action": "write_mod" }
+  ],
+  "actions": {
+    "read_info": { "title": "Read ECU Info", "steps": [ { "type": "connect_edc15" }, { "type": "read_memory", "start": "0x72000", "end": "0x77000", "block_size": 254, "output": "temp.bin" }, { "type": "search_ascii", "file": "temp.bin", "patterns": ["EDC", "TDI"] } ] },
+    "read_flash": { "title": "Read Flash", "steps": [ { "type": "connect_edc15" }, { "type": "read_memory", "start": "0x00000", "end": "0x7FEE2", "block_size": 254, "output": "edc15rd.skf" }, { "type": "close_ecu" } ] },
+    "write_flash": { "title": "Write Flash", "steps": [ { "type": "require_file", "file": "edc15rd.skf" }, { "type": "connect_edc15" }, { "type": "erase_flash", "command": "02 A5 0F B6", "wait_ms": 4000 }, { "type": "write_memory", "start": "0x7C000", "end": "0x7FFFF", "block_size": 250, "source": "edc15rd.skf", "label": "Writing boot" }, { "type": "write_memory", "start": "0x00000", "end": "0x7BFFF", "block_size": 250, "source": "edc15rd.skf", "label": "Writing flash" }, { "type": "close_ecu" } ] },
+    "add_db": { "title": "Add To DB", "steps": [ { "type": "require_file", "file": "edc15rd.skf" }, { "type": "scan_ecu_info", "file": "edc15rd.skf", "patterns": ["EDC", "TDI"] }, { "type": "create_db_entry" } ] },
+    "write_ori": { "title": "Write ORI", "steps": [ { "type": "select_db_file", "folder": "ORI", "target": "edc15rd.skf" }, { "type": "run_action", "action": "write_flash" } ] },
+    "write_mod": { "title": "Write MOD", "steps": [ { "type": "select_db_file", "folder": "MOD", "target": "edc15rd.skf" }, { "type": "run_action", "action": "write_flash" } ] }
+  }
+}
