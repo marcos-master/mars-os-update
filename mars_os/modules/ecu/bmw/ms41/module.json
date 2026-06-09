@@ -3,14 +3,113 @@
   "type": "ecu",
   "brand": "BMW",
   "family": "MS41",
-  "version": "0.1",
-  "transport": "KLINE",
-  "status": "placeholder",
+  "version": "0.2",
+  "transport": "DS2_KLINE",
+  "source": "OpenMS41/pyms41",
+  "description": "BMW MS41 DS2 module based on pyms41 commands",
+  "connection": {
+    "protocol": "DS2",
+    "ecu_address": "0x12",
+    "baud": 9600,
+    "data_bits": 8,
+    "stop_bits": 2,
+    "parity": "EVEN",
+    "checksum": "xor"
+  },
+  "commands": {
+    "identify": "0x00",
+    "read_dtc": "0x04",
+    "clear_dtc": "0x05",
+    "read_mem": "0x06"
+  },
   "menu": [
     { "title": "Read Info", "action": "read_info" },
-    { "title": "Read Errors", "action": "read_errors" },
-    { "title": "Clear Errors", "action": "clear_errors" },
-    { "title": "Data List", "action": "data_list" }
+    { "title": "Read VIN", "action": "read_vin" },
+    { "title": "Read DTC", "action": "read_dtc" },
+    { "title": "DTC Details", "action": "dtc_details" },
+    { "title": "Clear DTC", "action": "clear_dtc" },
+    { "title": "Read Memory", "action": "read_memory" },
+    { "title": "ROM Tools", "action": "rom_tools" },
+    { "title": "VIN Tools", "action": "vin_tools" }
   ],
-  "actions": {}
+  "actions": {
+    "connect": {
+      "title": "Connect MS41 DS2",
+      "steps": [
+        { "type": "serial_config", "baud": 9600, "data_bits": 8, "stop_bits": 2, "parity": "EVEN" }
+      ]
+    },
+    "read_info": {
+      "title": "Read ECU Info",
+      "steps": [
+        { "type": "run_action", "action": "connect" },
+        { "type": "ds2_command", "label": "Identify ECU", "address": "0x12", "command": "0x00", "response_store": "ecu_hw" },
+        { "type": "ds2_command", "label": "Read VIN", "address": "0x12", "command": "0x06", "args": "00 00 1D 07 0D", "response_store": "vin_raw" },
+        { "type": "decode_vin_ms41", "source": "vin_raw" }
+      ]
+    },
+    "read_vin": {
+      "title": "Read VIN",
+      "steps": [
+        { "type": "run_action", "action": "connect" },
+        { "type": "ds2_command", "label": "Read VIN Memory", "address": "0x12", "command": "0x06", "args": "00 00 1D 07 0D", "response_store": "vin_raw" },
+        { "type": "decode_vin_ms41", "source": "vin_raw" }
+      ]
+    },
+    "read_dtc": {
+      "title": "Read DTC",
+      "steps": [
+        { "type": "run_action", "action": "connect" },
+        { "type": "ds2_command", "label": "Read All DTC", "address": "0x12", "command": "0x04", "args": "01", "response_store": "dtc_raw" }
+      ]
+    },
+    "dtc_details": {
+      "title": "DTC Details",
+      "steps": [
+        { "type": "input_number", "label": "DTC index", "store": "dtc_index", "default": 1 },
+        { "type": "run_action", "action": "connect" },
+        { "type": "ds2_command", "label": "Read DTC Details", "address": "0x12", "command": "0x04", "args_from": "dtc_index", "response_store": "dtc_detail_raw" }
+      ]
+    },
+    "clear_dtc": {
+      "title": "Clear DTC",
+      "steps": [
+        { "type": "run_action", "action": "connect" },
+        { "type": "ds2_command", "label": "Clear DTC", "address": "0x12", "command": "0x05" }
+      ]
+    },
+    "read_memory": {
+      "title": "Read Memory",
+      "steps": [
+        { "type": "input_hex", "label": "Address", "store": "mem_address", "default": "0x00001D07" },
+        { "type": "input_number", "label": "Length", "store": "mem_length", "default": 13 },
+        { "type": "run_action", "action": "connect" },
+        { "type": "ds2_read_memory", "label": "Read DS2 Memory", "address": "0x12", "command": "0x06", "address_from": "mem_address", "length_from": "mem_length", "output": "ms41_mem.bin" }
+      ]
+    },
+    "rom_tools": {
+      "title": "ROM Tools",
+      "steps": [
+        { "type": "show_submenu", "items": [
+          { "title": "BIN to MEM", "action": "bin_to_mem" },
+          { "title": "MEM to BIN", "action": "mem_to_bin" },
+          { "title": "Check CRC", "action": "check_crc" }
+        ] }
+      ]
+    },
+    "vin_tools": {
+      "title": "VIN Tools",
+      "steps": [
+        { "type": "show_submenu", "items": [
+          { "title": "VIN to MS41 HEX", "action": "vin_to_hex" },
+          { "title": "MS41 HEX to VIN", "action": "hex_to_vin" }
+        ] }
+      ]
+    }
+  },
+  "rom_tools": {
+    "expected_size": 262144,
+    "block_size": "0x4000",
+    "boot_checksum": { "stored_at": "0x1C80-0x1C82", "initial": "0x4711", "range": "0x0000-0x1C14" }
+  }
 }
