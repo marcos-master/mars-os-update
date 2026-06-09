@@ -1,0 +1,16 @@
+{
+  "name": "BMW MS41",
+  "type": "ecu",
+  "brand": "BMW",
+  "family": "MS41",
+  "version": "0.1",
+  "transport": "KLINE",
+  "status": "placeholder",
+  "menu": [
+    { "title": "Read Info", "action": "read_info" },
+    { "title": "Read Errors", "action": "read_errors" },
+    { "title": "Clear Errors", "action": "clear_errors" },
+    { "title": "Data List", "action": "data_list" }
+  ],
+  "actions": {}
+}
