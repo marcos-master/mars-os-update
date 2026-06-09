@@ -3,10 +3,10 @@
   "type": "ecu",
   "brand": "BMW",
   "family": "MS41",
-  "version": "0.2",
+  "version": "0.3",
   "transport": "DS2_KLINE",
-  "source": "OpenMS41/pyms41",
-  "description": "BMW MS41 DS2 module based on pyms41 commands",
+  "source": "OpenMS41/pyms41 + gbeaty/ms41-checksum",
+  "description": "BMW MS41 DS2 module with MARS OS interpreter checksum steps",
   "connection": {
     "protocol": "DS2",
     "ecu_address": "0x12",
@@ -29,6 +29,9 @@
     { "title": "DTC Details", "action": "dtc_details" },
     { "title": "Clear DTC", "action": "clear_dtc" },
     { "title": "Read Memory", "action": "read_memory" },
+    { "title": "Check Checksum", "action": "check_checksum" },
+    { "title": "Fix Checksum", "action": "fix_checksum" },
+    { "title": "Write Flash", "action": "write_flash" },
     { "title": "ROM Tools", "action": "rom_tools" },
     { "title": "VIN Tools", "action": "vin_tools" }
   ],
@@ -87,13 +90,43 @@
         { "type": "ds2_read_memory", "label": "Read DS2 Memory", "address": "0x12", "command": "0x06", "address_from": "mem_address", "length_from": "mem_length", "output": "ms41_mem.bin" }
       ]
     },
+    "check_checksum": {
+      "title": "Check MS41 Checksum",
+      "steps": [
+        { "type": "select_file", "label": "Select MS41 BIN", "store": "flash_file", "filter": ".bin" },
+        { "type": "checksum", "algorithm": "ms41", "file_from": "flash_file", "mode": "check_only", "result_store": "checksum_result" },
+        { "type": "show_result", "source": "checksum_result" }
+      ]
+    },
+    "fix_checksum": {
+      "title": "Fix MS41 Checksum",
+      "steps": [
+        { "type": "select_file", "label": "Select MS41 BIN", "store": "flash_file", "filter": ".bin" },
+        { "type": "backup_file", "file_from": "flash_file", "suffix": ".bak" },
+        { "type": "checksum", "algorithm": "ms41", "file_from": "flash_file", "mode": "auto_fix", "result_store": "checksum_result" },
+        { "type": "show_result", "source": "checksum_result" }
+      ]
+    },
+    "write_flash": {
+      "title": "Write Flash",
+      "steps": [
+        { "type": "select_file", "label": "Select MS41 BIN", "store": "flash_file", "filter": ".bin" },
+        { "type": "backup_file", "file_from": "flash_file", "suffix": ".bak" },
+        { "type": "checksum", "algorithm": "ms41", "file_from": "flash_file", "mode": "auto_fix", "result_store": "checksum_result" },
+        { "type": "require_checksum_ok", "source": "checksum_result" },
+        { "type": "confirm", "text": "Checksum OK. Write flash?" },
+        { "type": "run_action", "action": "connect" },
+        { "type": "write_flash", "protocol": "ds2", "file_from": "flash_file" }
+      ]
+    },
     "rom_tools": {
       "title": "ROM Tools",
       "steps": [
         { "type": "show_submenu", "items": [
           { "title": "BIN to MEM", "action": "bin_to_mem" },
           { "title": "MEM to BIN", "action": "mem_to_bin" },
-          { "title": "Check CRC", "action": "check_crc" }
+          { "title": "Check CRC", "action": "check_checksum" },
+          { "title": "Fix CRC", "action": "fix_checksum" }
         ] }
       ]
     },
@@ -105,6 +138,15 @@
           { "title": "MS41 HEX to VIN", "action": "hex_to_vin" }
         ] }
       ]
+    }
+  },
+  "checksum_algorithms": {
+    "ms41": {
+      "type": "crc16_table",
+      "source": "gbeaty/ms41-checksum",
+      "endian": "little",
+      "auto_update": true,
+      "description": "Iterates MS41 checksum table, compares recorded/calculated CRC and writes calculated CRC back when mode=auto_fix"
     }
   },
   "rom_tools": {
