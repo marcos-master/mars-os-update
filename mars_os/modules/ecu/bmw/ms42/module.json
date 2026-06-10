@@ -1,1 +1,182 @@
-{"name":"BMW MS42","type":"ecu","brand":"BMW","family":"MS42","version":"0.1","menu":[]}
+{
+  "name": "BMW MS42",
+  "type": "ecu",
+  "brand": "BMW",
+  "family": "MS42",
+  "version": "0.2",
+  "transport": "KLINE",
+  "protocol": "KWP2000_DS2",
+  "source": "grantUser/ms4x-flasher reverse branch",
+  "status": "definition_only_until_transport_executor",
+  "description": "BMW Siemens MS42 module definition for MARS OS based on reconstructed MS4x Flasher workflow. Real flash write requires K-Line/KWP2000/DS2 executor and verified logs before enabling erase/write.",
+
+  "connection": {
+    "bus": "KLINE",
+    "protocols": ["KWP2000", "DS2"],
+    "default_baud": 10400,
+    "tester_addr": "0xF1",
+    "ecu_addr": "0x12",
+    "ews_addr": "0x44",
+    "init": "kwp_or_ds2_detect",
+    "transport_notes": "ms4x-flasher reconstructs serial open/close/read/write, KWP2000 sender, and ECU detector for MS42/MS43/SMG2/GS20/GS860x."
+  },
+
+  "menu": [
+    { "title": "Detect ECU", "action": "detect_ecu" },
+    { "title": "Read Info", "action": "read_info" },
+    { "title": "Read DTC", "action": "read_dtc" },
+    { "title": "Clear DTC", "action": "clear_dtc" },
+    { "title": "Reset Adaptations", "action": "reset_adaptations" },
+    { "title": "EWS Sync", "action": "ews_sync" },
+    { "title": "EWS Reset Start", "action": "ews_reset_start" },
+    { "title": "Read Flash", "action": "read_flash" },
+    { "title": "Write Flash", "action": "write_flash" },
+    { "title": "Checksum", "action": "checksum" },
+    { "title": "Command Sender", "action": "command_sender" },
+    { "title": "ECU Reset", "action": "ecu_reset" }
+  ],
+
+  "actions": {
+    "detect_ecu": {
+      "title": "Detect MS42 ECU",
+      "steps": [
+        { "type": "kline_open", "baud": 10400 },
+        { "type": "kwp_detect_ecu", "targets": ["MS42", "MS43", "SMG2", "GS20", "GS8600", "GS8602", "GS8604"], "result_store": "ecu_detect" },
+        { "type": "require_detected", "family": "MS42", "source": "ecu_detect" },
+        { "type": "show_result", "source": "ecu_detect" }
+      ]
+    },
+
+    "read_info": {
+      "title": "Read ECU Info",
+      "steps": [
+        { "type": "run_action", "action": "detect_ecu" },
+        { "type": "kwp_read_identification", "store": "ecu_info" },
+        { "type": "show_result", "source": "ecu_info" }
+      ]
+    },
+
+    "read_dtc": {
+      "title": "Read DTC",
+      "steps": [
+        { "type": "run_action", "action": "detect_ecu" },
+        { "type": "ds2_send", "label": "Read diagnostic codes", "bytes": "18 00", "response_store": "dtc_raw" },
+        { "type": "parse_ms4x_dtc", "source": "dtc_raw", "format": "Occurrences Frequency Data1 Data2 Data3 Data4", "result_store": "dtc_list" },
+        { "type": "show_result", "source": "dtc_list" }
+      ]
+    },
+
+    "clear_dtc": {
+      "title": "Clear DTC",
+      "steps": [
+        { "type": "run_action", "action": "detect_ecu" },
+        { "type": "confirm", "text": "Clear MS42 DTC?" },
+        { "type": "ds2_send", "label": "Clear diagnostic codes", "bytes": "05 00 FF FF", "response_store": "clear_dtc_result" },
+        { "type": "show_result", "source": "clear_dtc_result" }
+      ]
+    },
+
+    "reset_adaptations": {
+      "title": "Reset Adaptations",
+      "steps": [
+        { "type": "run_action", "action": "detect_ecu" },
+        { "type": "show_message", "text": "MS42 adaptation reset is accumulate-then-send in ms4x-flasher. Detailed channel IDs still need verification." },
+        { "type": "select_option", "label": "Adaptation", "store": "adaptation_item", "options": ["Reset All", "Fuel trims", "Idle", "Throttle", "VANOS", "Knock adaptations"] },
+        { "type": "confirm", "text": "Reset selected adaptation?" },
+        { "type": "ms42_reset_adaptation", "item_from": "adaptation_item" }
+      ]
+    },
+
+    "ews_sync": {
+      "title": "EWS Sync",
+      "steps": [
+        { "type": "run_action", "action": "detect_ecu" },
+        { "type": "ds2_send", "label": "EWS Sync", "bytes": "6D", "response_store": "ews_sync_result" },
+        { "type": "show_result", "source": "ews_sync_result" }
+      ]
+    },
+
+    "ews_reset_start": {
+      "title": "EWS Reset Start Value",
+      "steps": [
+        { "type": "run_action", "action": "detect_ecu" },
+        { "type": "confirm", "text": "Reset EWS start value?" },
+        { "type": "ds2_send", "label": "EWS Reset Start", "bytes": "6C 01", "response_store": "ews_reset_result" },
+        { "type": "show_result", "source": "ews_reset_result" }
+      ]
+    },
+
+    "ews_read_data": {
+      "title": "Read EWS Data",
+      "steps": [
+        { "type": "kline_open", "baud": 10400 },
+        { "type": "ds2_send", "address": "0x44", "label": "Read EWS Data", "bytes": "67", "response_store": "ews_data" },
+        { "type": "show_result", "source": "ews_data" }
+      ]
+    },
+
+    "read_flash": {
+      "title": "Read Flash",
+      "steps": [
+        { "type": "run_action", "action": "detect_ecu" },
+        { "type": "show_message", "text": "Read flash workflow exists in ms4x-flasher. Exact executor must be implemented in MARS OS KWP layer." },
+        { "type": "kwp_read_flash", "family": "MS42", "mode": "full", "output": "MS42_READ.bin", "requires_executor": "ms4x_kwp_read_flash" }
+      ]
+    },
+
+    "write_flash": {
+      "title": "Write Flash",
+      "steps": [
+        { "type": "select_file", "label": "Select MS42 BIN", "store": "flash_file", "filter": ".bin" },
+        { "type": "backup_file", "file_from": "flash_file", "suffix": ".bak" },
+        { "type": "checksum", "algorithm": "ms42_ms4x", "file_from": "flash_file", "mode": "auto_fix", "result_store": "checksum_result" },
+        { "type": "require_checksum_ok", "source": "checksum_result" },
+        { "type": "run_action", "action": "detect_ecu" },
+        { "type": "confirm", "text": "Checksum OK. Write MS42 flash?" },
+        { "type": "kwp_write_flash", "family": "MS42", "file_from": "flash_file", "requires_executor": "ms4x_kwp_write_flash", "safety": "disabled_until_verified" }
+      ]
+    },
+
+    "checksum": {
+      "title": "MS42 Checksum",
+      "steps": [
+        { "type": "select_file", "label": "Select MS42 BIN", "store": "flash_file", "filter": ".bin" },
+        { "type": "checksum", "algorithm": "ms42_ms4x", "file_from": "flash_file", "mode": "check_or_fix", "result_store": "checksum_result" },
+        { "type": "show_result", "source": "checksum_result" }
+      ]
+    },
+
+    "command_sender": {
+      "title": "Command Sender",
+      "steps": [
+        { "type": "input_hex", "label": "Destination", "store": "dest", "default": "0x12" },
+        { "type": "input_hex_string", "label": "Command", "store": "cmd" },
+        { "type": "kwp_send_receive", "destination_from": "dest", "command_from": "cmd", "response_store": "cmd_response" },
+        { "type": "show_result", "source": "cmd_response" }
+      ]
+    },
+
+    "ecu_reset": {
+      "title": "ECU Reset",
+      "steps": [
+        { "type": "run_action", "action": "detect_ecu" },
+        { "type": "confirm", "text": "Reset ECU?" },
+        { "type": "kwp_ecu_reset" }
+      ]
+    }
+  },
+
+  "checksum_algorithms": {
+    "ms42_ms4x": {
+      "source": "grantUser/ms4x-flasher checksum engine",
+      "crc": "CRC-16/ARC poly 0xA001 inclusive range",
+      "coverage": ["bootloader_crc"],
+      "notes": "ms4x-flasher README states Ms42Checker = CRC-16/ARC bootloader CRC. No MS43-style 32-bit word-sum monitor is listed for MS42."
+    }
+  },
+
+  "safety": {
+    "write_flash_enabled": false,
+    "reason": "Write/erase must stay disabled until MARS OS K-Line/KWP/DS2 executor is implemented and verified with bench ECU logs."
+  }
+}
