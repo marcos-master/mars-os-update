@@ -1,0 +1,8 @@
+{
+  "modules": [
+    "/modules/ecu/bmw/ms41/module.json",
+    "/modules/ecu/bmw/ms42/module.json",
+    "/modules/ecu/bmw/ms43/module.json",
+    "/modules/ecu/bmw/edc15c4/module.json"
+  ]
+}
