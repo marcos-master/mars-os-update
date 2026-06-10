@@ -1,0 +1,46 @@
+{
+  "name": "Generic CAN OBD2",
+  "transport": "CAN",
+  "baud": 500000,
+  "menu": [
+    {
+      "title": "Open CAN",
+      "action": "open_can"
+    },
+    {
+      "title": "Read VIN",
+      "action": "read_vin"
+    }
+  ],
+  "actions": {
+    "open_can": {
+      "steps": [
+        {
+          "type": "connect_can",
+          "label": "Start CAN interface"
+        }
+      ]
+    },
+    "read_vin": {
+      "steps": [
+        {
+          "type": "connect_can",
+          "label": "Start CAN interface"
+        },
+        {
+          "type": "can_request",
+          "label": "OBD service 09 PID 02",
+          "id": 2015,
+          "reply_id": 2024,
+          "request": "02 09 02",
+          "timeout_ms": 750,
+          "response_store": "vin_response"
+        },
+        {
+          "type": "show_result",
+          "source": "vin_response"
+        }
+      ]
+    }
+  }
+}

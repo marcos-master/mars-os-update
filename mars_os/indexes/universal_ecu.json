@@ -1,3 +1,6 @@
 {
-  "modules": []
+  "modules": [
+    "/modules/ecu/universal/rusefi/module.json",
+    "/modules/ecu/universal/can_demo/module.json"
+  ]
 }
