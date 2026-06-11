@@ -3,11 +3,11 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "0.5",
+  "version": "0.6",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW F10/F30 GWS selector. No buttons. Auto live_can status screen. All logic stays in JSON.",
+  "description": "BMW F10/F30 GWS selector live display. No buttons. MARS OS Runtime starts live_can and JSON controls P/R/N/D/S + Sport +/-.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 1021,
@@ -295,20 +295,75 @@
         "min": 1,
         "max": 8,
         "hits": 1
+      },
+      {
+        "label": "Sport - b6",
+        "when_state": "S",
+        "id": 1374,
+        "byte6": 94,
+        "action": "dec_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      },
+      {
+        "label": "Sport + b6",
+        "when_state": "S",
+        "id": 1374,
+        "byte6": 110,
+        "action": "inc_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      },
+      {
+        "label": "Sport - b5",
+        "when_state": "S",
+        "id": 1374,
+        "byte5": 94,
+        "action": "dec_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      },
+      {
+        "label": "Sport + b5",
+        "when_state": "S",
+        "id": 1374,
+        "byte5": 110,
+        "action": "inc_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      },
+      {
+        "label": "Sport - b2",
+        "when_state": "S",
+        "id": 1374,
+        "byte2": 94,
+        "action": "dec_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      },
+      {
+        "label": "Sport + b2",
+        "when_state": "S",
+        "id": 1374,
+        "byte2": 110,
+        "action": "inc_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
       }
     ]
   },
   "menu": [],
-  "actions": {},
-  "display": {
-    "mode": "selector_status",
-    "title": "BMW GWS F10/F30",
-    "value_from": "live_can.state",
-    "show": [
-      "gear",
-      "rx",
-      "tx",
-      "event"
-    ]
-  }
+  "actions": {}
 }
