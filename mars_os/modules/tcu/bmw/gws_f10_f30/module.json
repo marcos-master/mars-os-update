@@ -3,11 +3,90 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "0.1",
-  "monitor_type": "bmw_gws_live",
+  "version": "0.2",
+  "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "Bench-test module for BMW electronic gear selector. Uses known working CAN frames from the external selector tester sketch.",
+  "description": "MARS OS live CAN selector module. All selector behavior is driven from JSON live_can config.",
+  "live_can": {
+    "baud": 500000,
+    "state_frame_id": 1021,
+    "state_interval_ms": 200,
+    "initial_state": "P",
+    "states": [
+      {
+        "name": "P",
+        "frames": [
+          "F3 00 20 0C FF","6E 01 20 0C FF","D4 02 20 0C FF","49 03 20 0C FF","BD 04 20 0C FF",
+          "20 05 20 0C FF","9A 06 20 0C FF","07 07 20 0C FF","6F 08 20 0C FF","F2 09 20 0C FF",
+          "48 0A 20 0C FF","D5 0B 20 0C FF","21 0C 20 0C FF","BC 0D 20 0C FF","06 0E 20 0C FF"
+        ]
+      },
+      {
+        "name": "R",
+        "frames": [
+          "A3 00 40 0C FF","3E 01 40 0C FF","84 02 40 0C FF","19 03 40 0C FF","ED 04 40 0C FF",
+          "70 05 40 0C FF","CA 06 40 0C FF","57 07 40 0C FF","3F 08 40 0C FF","A2 09 40 0C FF",
+          "18 0A 40 0C FF","85 0B 40 0C FF","71 0C 40 0C FF","EC 0D 40 0C FF","56 0E 40 0C FF"
+        ]
+      },
+      {
+        "name": "N",
+        "frames": [
+          "93 00 60 0C FF","0E 01 60 0C FF","B4 02 60 0C FF","29 03 60 0C FF","DD 04 60 0C FF",
+          "40 05 60 0C FF","FA 06 60 0C FF","67 07 60 0C FF","0F 08 60 0C FF","92 09 60 0C FF",
+          "28 0A 60 0C FF","B5 0B 60 0C FF","41 0C 60 0C FF","DC 0D 60 0C FF","66 0E 60 0C FF"
+        ]
+      },
+      {
+        "name": "D",
+        "frames": [
+          "03 00 80 0C FF","9E 01 80 0C FF","24 02 80 0C FF","B9 03 80 0C FF","4D 04 80 0C FF",
+          "D0 05 80 0C FF","6A 06 80 0C FF","F7 07 80 0C FF","9F 08 80 0C FF","02 09 80 0C FF",
+          "B8 0A 80 0C FF","25 0B 80 0C FF","D1 0C 80 0C FF","4C 0D 80 0C FF","F6 0E 80 0C FF"
+        ]
+      },
+      {
+        "name": "S",
+        "frames": [
+          "A9 10 81 0C FF","34 11 81 0C FF","8E 12 81 0C FF","13 13 81 0C FF","E7 14 81 0C FF",
+          "7A 15 81 0C FF","C0 16 81 0C FF","5D 17 81 0C FF","35 18 81 0C FF","A8 19 81 0C FF",
+          "12 1A 81 0C FF","8F 1B 81 0C FF","7B 1C 81 0C FF","E6 1D 81 0C FF","5C 1E 81 0C FF"
+        ]
+      }
+    ],
+    "periodic_frames": [
+      {
+        "label": "status",
+        "id": 304,
+        "interval_ms": 500,
+        "frames": ["05 F0 FC FF FF"]
+      },
+      {
+        "label": "sport_seq",
+        "id": 2586,
+        "interval_ms": 200,
+        "frames": [
+          "FC C6 00 00 81","61 C7 00 00 81","09 C8 00 00 81","94 C9 00 00 81","2E CA 00 00 81",
+          "B3 CB 00 00 81","47 CC 00 00 81","DA CD 00 00 81","60 CE 00 00 81","95 C0 00 00 81",
+          "08 C1 00 00 81","B2 C2 00 00 81","2F C3 00 00 81","DB C4 00 00 81","46 C5 00 00 81"
+        ]
+      },
+      {
+        "label": "backlight",
+        "id": 514,
+        "interval_ms": 1000,
+        "frames": ["FF 00"]
+      }
+    ],
+    "rx_rules": [
+      { "label": "Park", "id": 407, "byte3": 213, "state": "P" },
+      { "label": "Reverse", "id": 407, "byte2": 31, "byte3": 192, "state": "R" },
+      { "label": "Neutral", "id": 407, "byte2": 47, "byte3": 192, "state": "N" },
+      { "label": "Drive A", "id": 407, "byte2": 63, "byte3": 192, "state": "D" },
+      { "label": "Drive B", "id": 407, "byte2": 79, "byte3": 192, "state": "D" }
+    ]
+  },
   "menu": [
     { "title": "Open CAN", "action": "open_can" },
     { "title": "Keepalive", "action": "keepalive" },
