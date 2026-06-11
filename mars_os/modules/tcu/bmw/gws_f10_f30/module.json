@@ -3,11 +3,11 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "0.2",
-  "monitor_type": "live_can",
+  "version": "0.3",
+  "monitor_type": "json_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "MARS OS live CAN selector module. All selector behavior is driven from JSON live_can config.",
+  "description": "MARS OS BMW GWS F10/F30 JSON CAN module. Start Live runs live_can from JSON; firmware stays generic.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 1021,
@@ -17,41 +17,101 @@
       {
         "name": "P",
         "frames": [
-          "F3 00 20 0C FF","6E 01 20 0C FF","D4 02 20 0C FF","49 03 20 0C FF","BD 04 20 0C FF",
-          "20 05 20 0C FF","9A 06 20 0C FF","07 07 20 0C FF","6F 08 20 0C FF","F2 09 20 0C FF",
-          "48 0A 20 0C FF","D5 0B 20 0C FF","21 0C 20 0C FF","BC 0D 20 0C FF","06 0E 20 0C FF"
+          "F3 00 20 0C FF",
+          "6E 01 20 0C FF",
+          "D4 02 20 0C FF",
+          "49 03 20 0C FF",
+          "BD 04 20 0C FF",
+          "20 05 20 0C FF",
+          "9A 06 20 0C FF",
+          "07 07 20 0C FF",
+          "6F 08 20 0C FF",
+          "F2 09 20 0C FF",
+          "48 0A 20 0C FF",
+          "D5 0B 20 0C FF",
+          "21 0C 20 0C FF",
+          "BC 0D 20 0C FF",
+          "06 0E 20 0C FF"
         ]
       },
       {
         "name": "R",
         "frames": [
-          "A3 00 40 0C FF","3E 01 40 0C FF","84 02 40 0C FF","19 03 40 0C FF","ED 04 40 0C FF",
-          "70 05 40 0C FF","CA 06 40 0C FF","57 07 40 0C FF","3F 08 40 0C FF","A2 09 40 0C FF",
-          "18 0A 40 0C FF","85 0B 40 0C FF","71 0C 40 0C FF","EC 0D 40 0C FF","56 0E 40 0C FF"
+          "A3 00 40 0C FF",
+          "3E 01 40 0C FF",
+          "84 02 40 0C FF",
+          "19 03 40 0C FF",
+          "ED 04 40 0C FF",
+          "70 05 40 0C FF",
+          "CA 06 40 0C FF",
+          "57 07 40 0C FF",
+          "3F 08 40 0C FF",
+          "A2 09 40 0C FF",
+          "18 0A 40 0C FF",
+          "85 0B 40 0C FF",
+          "71 0C 40 0C FF",
+          "EC 0D 40 0C FF",
+          "56 0E 40 0C FF"
         ]
       },
       {
         "name": "N",
         "frames": [
-          "93 00 60 0C FF","0E 01 60 0C FF","B4 02 60 0C FF","29 03 60 0C FF","DD 04 60 0C FF",
-          "40 05 60 0C FF","FA 06 60 0C FF","67 07 60 0C FF","0F 08 60 0C FF","92 09 60 0C FF",
-          "28 0A 60 0C FF","B5 0B 60 0C FF","41 0C 60 0C FF","DC 0D 60 0C FF","66 0E 60 0C FF"
+          "93 00 60 0C FF",
+          "0E 01 60 0C FF",
+          "B4 02 60 0C FF",
+          "29 03 60 0C FF",
+          "DD 04 60 0C FF",
+          "40 05 60 0C FF",
+          "FA 06 60 0C FF",
+          "67 07 60 0C FF",
+          "0F 08 60 0C FF",
+          "92 09 60 0C FF",
+          "28 0A 60 0C FF",
+          "B5 0B 60 0C FF",
+          "41 0C 60 0C FF",
+          "DC 0D 60 0C FF",
+          "66 0E 60 0C FF"
         ]
       },
       {
         "name": "D",
         "frames": [
-          "03 00 80 0C FF","9E 01 80 0C FF","24 02 80 0C FF","B9 03 80 0C FF","4D 04 80 0C FF",
-          "D0 05 80 0C FF","6A 06 80 0C FF","F7 07 80 0C FF","9F 08 80 0C FF","02 09 80 0C FF",
-          "B8 0A 80 0C FF","25 0B 80 0C FF","D1 0C 80 0C FF","4C 0D 80 0C FF","F6 0E 80 0C FF"
+          "03 00 80 0C FF",
+          "9E 01 80 0C FF",
+          "24 02 80 0C FF",
+          "B9 03 80 0C FF",
+          "4D 04 80 0C FF",
+          "D0 05 80 0C FF",
+          "6A 06 80 0C FF",
+          "F7 07 80 0C FF",
+          "9F 08 80 0C FF",
+          "02 09 80 0C FF",
+          "B8 0A 80 0C FF",
+          "25 0B 80 0C FF",
+          "D1 0C 80 0C FF",
+          "4C 0D 80 0C FF",
+          "F6 0E 80 0C FF"
         ]
       },
       {
         "name": "S",
         "frames": [
-          "A9 10 81 0C FF","34 11 81 0C FF","8E 12 81 0C FF","13 13 81 0C FF","E7 14 81 0C FF",
-          "7A 15 81 0C FF","C0 16 81 0C FF","5D 17 81 0C FF","35 18 81 0C FF","A8 19 81 0C FF",
-          "12 1A 81 0C FF","8F 1B 81 0C FF","7B 1C 81 0C FF","E6 1D 81 0C FF","5C 1E 81 0C FF"
+          "A9 10 81 0C FF",
+          "34 11 81 0C FF",
+          "8E 12 81 0C FF",
+          "13 13 81 0C FF",
+          "E7 14 81 0C FF",
+          "7A 15 81 0C FF",
+          "C0 16 81 0C FF",
+          "5D 17 81 0C FF",
+          "35 18 81 0C FF",
+          "A8 19 81 0C FF",
+          "12 1A 81 0C FF",
+          "8F 1B 81 0C FF",
+          "7B 1C 81 0C FF",
+          "E6 1D 81 0C FF",
+          "5C 1E 81 0C FF"
         ]
       }
     ],
@@ -60,123 +120,455 @@
         "label": "status",
         "id": 304,
         "interval_ms": 500,
-        "frames": ["05 F0 FC FF FF"]
+        "frames": [
+          "05 F0 FC FF FF"
+        ]
       },
       {
         "label": "sport_seq",
         "id": 2586,
         "interval_ms": 200,
         "frames": [
-          "FC C6 00 00 81","61 C7 00 00 81","09 C8 00 00 81","94 C9 00 00 81","2E CA 00 00 81",
-          "B3 CB 00 00 81","47 CC 00 00 81","DA CD 00 00 81","60 CE 00 00 81","95 C0 00 00 81",
-          "08 C1 00 00 81","B2 C2 00 00 81","2F C3 00 00 81","DB C4 00 00 81","46 C5 00 00 81"
+          "FC C6 00 00 81",
+          "61 C7 00 00 81",
+          "09 C8 00 00 81",
+          "94 C9 00 00 81",
+          "2E CA 00 00 81",
+          "B3 CB 00 00 81",
+          "47 CC 00 00 81",
+          "DA CD 00 00 81",
+          "60 CE 00 00 81",
+          "95 C0 00 00 81",
+          "08 C1 00 00 81",
+          "B2 C2 00 00 81",
+          "2F C3 00 00 81",
+          "DB C4 00 00 81",
+          "46 C5 00 00 81"
         ]
       },
       {
         "label": "backlight",
         "id": 514,
         "interval_ms": 1000,
-        "frames": ["FF 00"]
+        "frames": [
+          "FF 00"
+        ]
       }
     ],
     "vars": [
-      { "name": "sport_gear", "value": 1 }
+      {
+        "name": "sport_gear",
+        "value": 1
+      }
     ],
     "transitions": [
-      { "label": "Park", "id": 407, "byte3": 213, "to_state": "P", "hits": 2 },
-      { "label": "P to D", "from_state": "P", "id": 407, "byte2": 63, "byte3": 192, "to_state": "D", "hits": 9 },
-      { "label": "Any to D long", "id": 407, "byte2": 79, "byte3": 192, "to_state": "D", "hits": 9 },
-      { "label": "R to N", "from_state": "R", "id": 407, "byte2": 31, "byte3": 192, "to_state": "N", "hits": 9 },
-      { "label": "N to D", "from_state": "N", "id": 407, "byte2": 63, "byte3": 192, "to_state": "D", "hits": 9 },
-      { "label": "D to N", "from_state": "D", "id": 407, "byte2": 31, "byte3": 192, "to_state": "N", "hits": 9 },
-      { "label": "N to R", "from_state": "N", "id": 407, "byte2": 47, "byte3": 192, "to_state": "R", "hits": 9 },
-      { "label": "Any to R long", "id": 407, "byte2": 47, "byte3": 192, "to_state": "R", "hits": 9 },
-      { "label": "To Sport", "from_state": "D", "id": 407, "byte2": 127, "to_state": "S", "hits": 2 },
-      { "label": "To Sport from N", "from_state": "N", "id": 407, "byte2": 127, "to_state": "S", "hits": 2 },
-      { "label": "To Sport from R", "from_state": "R", "id": 407, "byte2": 127, "to_state": "S", "hits": 2 },
-      { "label": "S to D", "from_state": "S", "id": 407, "byte2": 63, "byte3": 192, "to_state": "D", "hits": 9 },
-      { "label": "S to N", "from_state": "S", "id": 407, "byte2": 31, "byte3": 192, "to_state": "N", "hits": 9 }
+      {
+        "label": "Park",
+        "id": 407,
+        "byte3": 213,
+        "to_state": "P",
+        "hits": 2
+      },
+      {
+        "label": "P to D",
+        "from_state": "P",
+        "id": 407,
+        "byte2": 63,
+        "byte3": 192,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "Any to D long",
+        "id": 407,
+        "byte2": 79,
+        "byte3": 192,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "R to N",
+        "from_state": "R",
+        "id": 407,
+        "byte2": 31,
+        "byte3": 192,
+        "to_state": "N",
+        "hits": 9
+      },
+      {
+        "label": "N to D",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 63,
+        "byte3": 192,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "D to N",
+        "from_state": "D",
+        "id": 407,
+        "byte2": 31,
+        "byte3": 192,
+        "to_state": "N",
+        "hits": 9
+      },
+      {
+        "label": "N to R",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 47,
+        "byte3": 192,
+        "to_state": "R",
+        "hits": 9
+      },
+      {
+        "label": "Any to R long",
+        "id": 407,
+        "byte2": 47,
+        "byte3": 192,
+        "to_state": "R",
+        "hits": 9
+      },
+      {
+        "label": "To Sport",
+        "from_state": "D",
+        "id": 407,
+        "byte2": 127,
+        "to_state": "S",
+        "hits": 2
+      },
+      {
+        "label": "To Sport from N",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 127,
+        "to_state": "S",
+        "hits": 2
+      },
+      {
+        "label": "To Sport from R",
+        "from_state": "R",
+        "id": 407,
+        "byte2": 127,
+        "to_state": "S",
+        "hits": 2
+      },
+      {
+        "label": "S to D",
+        "from_state": "S",
+        "id": 407,
+        "byte2": 63,
+        "byte3": 192,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "S to N",
+        "from_state": "S",
+        "id": 407,
+        "byte2": 31,
+        "byte3": 192,
+        "to_state": "N",
+        "hits": 9
+      }
     ],
     "event_actions": [
-      { "label": "Sport -", "when_state": "S", "id": 1374, "byte7": 94, "action": "dec_var", "var": "sport_gear", "min": 1, "max": 8, "hits": 1 },
-      { "label": "Sport +", "when_state": "S", "id": 1374, "byte7": 110, "action": "inc_var", "var": "sport_gear", "min": 1, "max": 8, "hits": 1 }
+      {
+        "label": "Sport -",
+        "when_state": "S",
+        "id": 1374,
+        "byte7": 94,
+        "action": "dec_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      },
+      {
+        "label": "Sport +",
+        "when_state": "S",
+        "id": 1374,
+        "byte7": 110,
+        "action": "inc_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      }
     ]
   },
   "menu": [
-    { "title": "Open CAN", "action": "open_can" },
-    { "title": "Keepalive", "action": "keepalive" },
-    { "title": "Backlight ON", "action": "backlight_on" },
-    { "title": "Set P", "action": "set_p" },
-    { "title": "Set R", "action": "set_r" },
-    { "title": "Set N", "action": "set_n" },
-    { "title": "Set D", "action": "set_d" },
-    { "title": "Set Sport", "action": "set_s" }
+    {
+      "title": "Start Live",
+      "action": "start_live"
+    },
+    {
+      "title": "Stop Live",
+      "action": "stop_live"
+    },
+    {
+      "title": "Open CAN",
+      "action": "open_can"
+    },
+    {
+      "title": "Keepalive",
+      "action": "keepalive"
+    },
+    {
+      "title": "Backlight ON",
+      "action": "backlight_on"
+    },
+    {
+      "title": "Set P",
+      "action": "set_p"
+    },
+    {
+      "title": "Set R",
+      "action": "set_r"
+    },
+    {
+      "title": "Set N",
+      "action": "set_n"
+    },
+    {
+      "title": "Set D",
+      "action": "set_d"
+    },
+    {
+      "title": "Set Sport",
+      "action": "set_s"
+    }
   ],
   "actions": {
+    "start_live": {
+      "steps": [
+        {
+          "type": "live_can_start",
+          "label": "Start JSON live CAN engine"
+        }
+      ]
+    },
+    "stop_live": {
+      "steps": [
+        {
+          "type": "live_can_stop",
+          "label": "Stop JSON live CAN engine"
+        }
+      ]
+    },
     "open_can": {
       "steps": [
-        { "type": "connect_can", "label": "Open CAN 500k for BMW GWS" }
+        {
+          "type": "can_start",
+          "label": "Open CAN 500k for BMW GWS",
+          "baud": 500000
+        }
       ]
     },
     "keepalive": {
       "steps": [
-        { "type": "connect_can", "label": "Open CAN 500k for BMW GWS" },
-        { "type": "can_send", "label": "Send alive frame 0x130", "id": 304, "request": "05 F0 FC FF FF" },
-        { "type": "message", "text": "BMW GWS keepalive sent" }
+        {
+          "type": "can_start",
+          "label": "Open CAN 500k for BMW GWS",
+          "baud": 500000
+        },
+        {
+          "type": "can_send",
+          "label": "Send alive frame 0x130",
+          "id": 304,
+          "request": "05 F0 FC FF FF"
+        },
+        {
+          "type": "message",
+          "text": "BMW GWS keepalive sent"
+        }
       ]
     },
     "backlight_on": {
       "steps": [
-        { "type": "connect_can", "label": "Open CAN 500k for BMW GWS" },
-        { "type": "can_send", "label": "Send alive frame 0x130", "id": 304, "request": "05 F0 FC FF FF" },
-        { "type": "can_send", "label": "Backlight frame 0x202", "id": 514, "request": "FF 00" },
-        { "type": "message", "text": "BMW GWS backlight command sent" }
+        {
+          "type": "can_start",
+          "label": "Open CAN 500k for BMW GWS",
+          "baud": 500000
+        },
+        {
+          "type": "can_send",
+          "label": "Send alive frame 0x130",
+          "id": 304,
+          "request": "05 F0 FC FF FF"
+        },
+        {
+          "type": "can_send",
+          "label": "Backlight frame 0x202",
+          "id": 514,
+          "request": "FF 00"
+        },
+        {
+          "type": "message",
+          "text": "BMW GWS backlight command sent"
+        }
       ]
     },
     "set_p": {
       "steps": [
-        { "type": "connect_can", "label": "Open CAN 500k for BMW GWS" },
-        { "type": "can_send", "label": "Send alive frame 0x130", "id": 304, "request": "05 F0 FC FF FF" },
-        { "type": "can_send", "label": "Backlight frame 0x202", "id": 514, "request": "FF 00" },
-        { "type": "can_send", "label": "Selector state P 0x3FD", "id": 1021, "request": "F3 00 20 0C FF" },
-        { "type": "message", "text": "BMW GWS set to P frame sent" }
+        {
+          "type": "can_start",
+          "label": "Open CAN 500k for BMW GWS",
+          "baud": 500000
+        },
+        {
+          "type": "can_send",
+          "label": "Send alive frame 0x130",
+          "id": 304,
+          "request": "05 F0 FC FF FF"
+        },
+        {
+          "type": "can_send",
+          "label": "Backlight frame 0x202",
+          "id": 514,
+          "request": "FF 00"
+        },
+        {
+          "type": "can_send",
+          "label": "Selector state P 0x3FD",
+          "id": 1021,
+          "request": "F3 00 20 0C FF"
+        },
+        {
+          "type": "message",
+          "text": "BMW GWS set to P frame sent"
+        }
       ]
     },
     "set_r": {
       "steps": [
-        { "type": "connect_can", "label": "Open CAN 500k for BMW GWS" },
-        { "type": "can_send", "label": "Send alive frame 0x130", "id": 304, "request": "05 F0 FC FF FF" },
-        { "type": "can_send", "label": "Backlight frame 0x202", "id": 514, "request": "FF 00" },
-        { "type": "can_send", "label": "Selector state R 0x3FD", "id": 1021, "request": "A3 00 40 0C FF" },
-        { "type": "message", "text": "BMW GWS set to R frame sent" }
+        {
+          "type": "can_start",
+          "label": "Open CAN 500k for BMW GWS",
+          "baud": 500000
+        },
+        {
+          "type": "can_send",
+          "label": "Send alive frame 0x130",
+          "id": 304,
+          "request": "05 F0 FC FF FF"
+        },
+        {
+          "type": "can_send",
+          "label": "Backlight frame 0x202",
+          "id": 514,
+          "request": "FF 00"
+        },
+        {
+          "type": "can_send",
+          "label": "Selector state R 0x3FD",
+          "id": 1021,
+          "request": "A3 00 40 0C FF"
+        },
+        {
+          "type": "message",
+          "text": "BMW GWS set to R frame sent"
+        }
       ]
     },
     "set_n": {
       "steps": [
-        { "type": "connect_can", "label": "Open CAN 500k for BMW GWS" },
-        { "type": "can_send", "label": "Send alive frame 0x130", "id": 304, "request": "05 F0 FC FF FF" },
-        { "type": "can_send", "label": "Backlight frame 0x202", "id": 514, "request": "FF 00" },
-        { "type": "can_send", "label": "Selector state N 0x3FD", "id": 1021, "request": "93 00 60 0C FF" },
-        { "type": "message", "text": "BMW GWS set to N frame sent" }
+        {
+          "type": "can_start",
+          "label": "Open CAN 500k for BMW GWS",
+          "baud": 500000
+        },
+        {
+          "type": "can_send",
+          "label": "Send alive frame 0x130",
+          "id": 304,
+          "request": "05 F0 FC FF FF"
+        },
+        {
+          "type": "can_send",
+          "label": "Backlight frame 0x202",
+          "id": 514,
+          "request": "FF 00"
+        },
+        {
+          "type": "can_send",
+          "label": "Selector state N 0x3FD",
+          "id": 1021,
+          "request": "93 00 60 0C FF"
+        },
+        {
+          "type": "message",
+          "text": "BMW GWS set to N frame sent"
+        }
       ]
     },
     "set_d": {
       "steps": [
-        { "type": "connect_can", "label": "Open CAN 500k for BMW GWS" },
-        { "type": "can_send", "label": "Send alive frame 0x130", "id": 304, "request": "05 F0 FC FF FF" },
-        { "type": "can_send", "label": "Backlight frame 0x202", "id": 514, "request": "FF 00" },
-        { "type": "can_send", "label": "Selector state D 0x3FD", "id": 1021, "request": "03 00 80 0C FF" },
-        { "type": "message", "text": "BMW GWS set to D frame sent" }
+        {
+          "type": "can_start",
+          "label": "Open CAN 500k for BMW GWS",
+          "baud": 500000
+        },
+        {
+          "type": "can_send",
+          "label": "Send alive frame 0x130",
+          "id": 304,
+          "request": "05 F0 FC FF FF"
+        },
+        {
+          "type": "can_send",
+          "label": "Backlight frame 0x202",
+          "id": 514,
+          "request": "FF 00"
+        },
+        {
+          "type": "can_send",
+          "label": "Selector state D 0x3FD",
+          "id": 1021,
+          "request": "03 00 80 0C FF"
+        },
+        {
+          "type": "message",
+          "text": "BMW GWS set to D frame sent"
+        }
       ]
     },
     "set_s": {
       "steps": [
-        { "type": "connect_can", "label": "Open CAN 500k for BMW GWS" },
-        { "type": "can_send", "label": "Send alive frame 0x130", "id": 304, "request": "05 F0 FC FF FF" },
-        { "type": "can_send", "label": "Backlight frame 0x202", "id": 514, "request": "FF 00" },
-        { "type": "can_send", "label": "Selector state DS 0x3FD", "id": 1021, "request": "A9 10 81 0C FF" },
-        { "type": "can_send", "label": "Sport frame 0x1A1", "id": 417, "request": "FC C6 00 00 81" },
-        { "type": "message", "text": "BMW GWS sport frame sent" }
+        {
+          "type": "can_start",
+          "label": "Open CAN 500k for BMW GWS",
+          "baud": 500000
+        },
+        {
+          "type": "can_send",
+          "label": "Send alive frame 0x130",
+          "id": 304,
+          "request": "05 F0 FC FF FF"
+        },
+        {
+          "type": "can_send",
+          "label": "Backlight frame 0x202",
+          "id": 514,
+          "request": "FF 00"
+        },
+        {
+          "type": "can_send",
+          "label": "Selector state DS 0x3FD",
+          "id": 1021,
+          "request": "A9 10 81 0C FF"
+        },
+        {
+          "type": "can_send",
+          "label": "Sport frame 0x1A1",
+          "id": 417,
+          "request": "FC C6 00 00 81"
+        },
+        {
+          "type": "message",
+          "text": "BMW GWS sport frame sent"
+        }
       ]
     }
   }
