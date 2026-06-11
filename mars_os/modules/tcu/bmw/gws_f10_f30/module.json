@@ -81,10 +81,14 @@
     ],
     "rx_rules": [
       { "label": "Park", "id": 407, "byte3": 213, "state": "P" },
+      { "label": "Park Alt", "id": 407, "byte2": 15, "byte3": 213, "state": "P" },
       { "label": "Reverse", "id": 407, "byte2": 31, "byte3": 192, "state": "R" },
       { "label": "Neutral", "id": 407, "byte2": 47, "byte3": 192, "state": "N" },
+      { "label": "Neutral Alt A", "id": 407, "byte2": 47, "state": "N" },
+      { "label": "Neutral Alt B", "id": 407, "byte3": 192, "byte2": 46, "state": "N" },
       { "label": "Drive A", "id": 407, "byte2": 63, "byte3": 192, "state": "D" },
-      { "label": "Drive B", "id": 407, "byte2": 79, "byte3": 192, "state": "D" }
+      { "label": "Drive B", "id": 407, "byte2": 79, "byte3": 192, "state": "D" },
+      { "label": "Manual Sport", "id": 407, "byte2": 15, "byte3": 198, "state": "S" }
     ]
   },
   "menu": [
