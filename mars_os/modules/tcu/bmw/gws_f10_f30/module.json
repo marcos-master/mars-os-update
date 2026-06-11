@@ -3,11 +3,11 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "1.0",
+  "version": "1.1",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW F10/F30 GWS stable module based on real TRC logs. Input ID 0x197: P button byte3=0xD5, Up=0x1F/0x2F, Down=0x3F/0x4F, Sport=0x7F, Manual -=0x5F, Manual +=0x6F.",
+  "description": "BMW F10/F30 GWS stable module v1.1. Fixes R immediately falling back to N by removing global byte2=0x1F N transition. P/R/N/D/S stable. Sport +/- kept on real TRC values.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 1021,
@@ -170,57 +170,25 @@
         "hits": 2
       },
       {
-        "label": "P/R/N to D short",
+        "label": "Down short to D",
         "id": 407,
         "byte2": 63,
         "to_state": "D",
         "hits": 2
       },
       {
-        "label": "Long down to D",
+        "label": "Down long to D",
         "id": 407,
         "byte2": 79,
         "to_state": "D",
         "hits": 2
       },
       {
-        "label": "D to N",
-        "from_state": "D",
-        "id": 407,
-        "byte2": 31,
-        "to_state": "N",
-        "hits": 2
-      },
-      {
-        "label": "S to N",
-        "from_state": "S",
-        "id": 407,
-        "byte2": 31,
-        "to_state": "N",
-        "hits": 2
-      },
-      {
-        "label": "M to N",
-        "from_state": "M",
-        "id": 407,
-        "byte2": 31,
-        "to_state": "N",
-        "hits": 2
-      },
-      {
-        "label": "N to R long",
-        "from_state": "N",
+        "label": "Up long to R",
         "id": 407,
         "byte2": 47,
         "to_state": "R",
         "hits": 2
-      },
-      {
-        "label": "Any to R long",
-        "id": 407,
-        "byte2": 47,
-        "to_state": "R",
-        "hits": 8
       },
       {
         "label": "Side to Sport",
@@ -228,14 +196,6 @@
         "byte2": 127,
         "to_state": "S",
         "hits": 2
-      },
-      {
-        "label": "Sport back to D",
-        "from_state": "S",
-        "id": 407,
-        "byte2": 127,
-        "to_state": "D",
-        "hits": 8
       }
     ],
     "event_actions": [
