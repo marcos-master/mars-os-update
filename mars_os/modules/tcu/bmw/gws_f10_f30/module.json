@@ -3,11 +3,11 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "1.1",
+  "version": "1.2",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW F10/F30 GWS stable module v1.1. Fixes R immediately falling back to N by removing global byte2=0x1F N transition. P/R/N/D/S stable. Sport +/- kept on real TRC values.",
+  "description": "BMW F10/F30 GWS module based on original working tester principle: counter/hits based switching, no instant conflicting transitions. Keeps Sport +/- on real TRC values 0x5F/0x6F.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 1021,
@@ -127,7 +127,7 @@
       {
         "label": "sport_seq",
         "id": 417,
-        "interval_ms": 200,
+        "interval_ms": 100,
         "frames": [
           "FC C6 00 00 81",
           "61 C7 00 00 81",
@@ -163,35 +163,195 @@
     ],
     "transitions": [
       {
-        "label": "P button",
+        "label": "Park button",
         "id": 407,
         "byte3": 213,
         "to_state": "P",
         "hits": 2
       },
       {
-        "label": "Down short to D",
+        "label": "Long down to D",
         "id": 407,
-        "byte2": 63,
+        "byte2": 78,
         "to_state": "D",
-        "hits": 2
+        "hits": 9
       },
       {
-        "label": "Down long to D",
+        "label": "Long down to D real",
         "id": 407,
         "byte2": 79,
         "to_state": "D",
-        "hits": 2
+        "hits": 9
       },
       {
-        "label": "Up long to R",
+        "label": "P to D short",
+        "from_state": "P",
+        "id": 407,
+        "byte2": 62,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "P to D short real",
+        "from_state": "P",
+        "id": 407,
+        "byte2": 63,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "R to N short",
+        "from_state": "R",
+        "id": 407,
+        "byte2": 62,
+        "to_state": "N",
+        "hits": 9
+      },
+      {
+        "label": "R to N short real",
+        "from_state": "R",
+        "id": 407,
+        "byte2": 63,
+        "to_state": "N",
+        "hits": 9
+      },
+      {
+        "label": "N to D short",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 62,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "N to D short real",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 63,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "S to D short",
+        "from_state": "S",
+        "id": 407,
+        "byte2": 62,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "S to D short real",
+        "from_state": "S",
+        "id": 407,
+        "byte2": 63,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "Long up to R",
+        "id": 407,
+        "byte2": 46,
+        "to_state": "R",
+        "hits": 9
+      },
+      {
+        "label": "Long up to R real",
         "id": 407,
         "byte2": 47,
         "to_state": "R",
+        "hits": 9
+      },
+      {
+        "label": "D to N short",
+        "from_state": "D",
+        "id": 407,
+        "byte2": 30,
+        "to_state": "N",
+        "hits": 9
+      },
+      {
+        "label": "D to N short real",
+        "from_state": "D",
+        "id": 407,
+        "byte2": 31,
+        "to_state": "N",
+        "hits": 9
+      },
+      {
+        "label": "N to R short",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 30,
+        "to_state": "R",
+        "hits": 9
+      },
+      {
+        "label": "N to R short real",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 31,
+        "to_state": "R",
+        "hits": 9
+      },
+      {
+        "label": "S to N short",
+        "from_state": "S",
+        "id": 407,
+        "byte2": 30,
+        "to_state": "N",
+        "hits": 9
+      },
+      {
+        "label": "S to N short real",
+        "from_state": "S",
+        "id": 407,
+        "byte2": 31,
+        "to_state": "N",
+        "hits": 9
+      },
+      {
+        "label": "D to S side",
+        "from_state": "D",
+        "id": 407,
+        "byte2": 126,
+        "to_state": "S",
         "hits": 2
       },
       {
-        "label": "Side to Sport",
+        "label": "D to S side real",
+        "from_state": "D",
+        "id": 407,
+        "byte2": 127,
+        "to_state": "S",
+        "hits": 2
+      },
+      {
+        "label": "N to S side",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 126,
+        "to_state": "S",
+        "hits": 2
+      },
+      {
+        "label": "N to S side real",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 127,
+        "to_state": "S",
+        "hits": 2
+      },
+      {
+        "label": "R to S side",
+        "from_state": "R",
+        "id": 407,
+        "byte2": 126,
+        "to_state": "S",
+        "hits": 2
+      },
+      {
+        "label": "R to S side real",
+        "from_state": "R",
         "id": 407,
         "byte2": 127,
         "to_state": "S",
@@ -200,7 +360,18 @@
     ],
     "event_actions": [
       {
-        "label": "Manual minus real",
+        "label": "Sport minus 5E",
+        "when_state": "S",
+        "id": 407,
+        "byte2": 94,
+        "action": "dec_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      },
+      {
+        "label": "Sport minus 5F real",
         "when_state": "S",
         "id": 407,
         "byte2": 95,
@@ -211,7 +382,18 @@
         "hits": 1
       },
       {
-        "label": "Manual plus real",
+        "label": "Sport plus 6E",
+        "when_state": "S",
+        "id": 407,
+        "byte2": 110,
+        "action": "inc_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      },
+      {
+        "label": "Sport plus 6F real",
         "when_state": "S",
         "id": 407,
         "byte2": 111,
