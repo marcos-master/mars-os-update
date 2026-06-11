@@ -80,15 +80,15 @@
       }
     ],
     "rx_rules": [
-      { "label": "Park", "id": 407, "byte3": 213, "state": "P" },
-      { "label": "Park Alt", "id": 407, "byte2": 15, "byte3": 213, "state": "P" },
-      { "label": "Neutral", "id": 407, "byte2": 31, "byte3": 192, "state": "N" },
-      { "label": "Reverse", "id": 407, "byte2": 47, "byte3": 192, "state": "R" },
-      { "label": "Reverse Alt A", "id": 407, "byte2": 47, "state": "R" },
-      { "label": "Reverse Alt B", "id": 407, "byte3": 192, "byte2": 46, "state": "R" },
-      { "label": "Drive A", "id": 407, "byte2": 63, "byte3": 192, "state": "D" },
-      { "label": "Drive B", "id": 407, "byte2": 79, "byte3": 192, "state": "D" },
-      { "label": "Manual Sport", "id": 407, "byte2": 15, "byte3": 198, "state": "S" }
+      { "label": "Park", "id": 407, "byte3": 213, "state": "P", "hits": 2 },
+      { "label": "Park Alt", "id": 407, "byte2": 15, "byte3": 213, "state": "P", "hits": 2 },
+      { "label": "Neutral", "id": 407, "byte2": 31, "byte3": 192, "state": "N", "hits": 9 },
+      { "label": "Reverse", "id": 407, "byte2": 47, "byte3": 192, "state": "R", "hits": 9 },
+      { "label": "Reverse Alt A", "id": 407, "byte2": 47, "state": "R", "hits": 9 },
+      { "label": "Reverse Alt B", "id": 407, "byte3": 192, "byte2": 46, "state": "R", "hits": 9 },
+      { "label": "Drive A", "id": 407, "byte2": 63, "byte3": 192, "state": "D", "hits": 9 },
+      { "label": "Drive B", "id": 407, "byte2": 79, "byte3": 192, "state": "D", "hits": 9 },
+      { "label": "Manual Sport", "id": 407, "byte2": 127, "state": "S", "hits": 2 }
     ]
   },
   "menu": [
