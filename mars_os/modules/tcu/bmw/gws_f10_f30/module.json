@@ -1,13 +1,13 @@
 {
-  "name": "BMW GWS F10/F30",
+  "name": "BMW CWG F10",
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "1.2",
+  "version": "1.3",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW F10/F30 GWS module based on original working tester principle: counter/hits based switching, no instant conflicting transitions. Keeps Sport +/- on real TRC values 0x5F/0x6F.",
+  "description": "BMW CWG F10 selector module. Tester-principle switching logic kept. Display layout: current gear on right side with largest font.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 1021,
@@ -406,5 +406,89 @@
     ]
   },
   "menu": [],
-  "actions": {}
+  "actions": {},
+  "screen": {
+    "type": "selector_status",
+    "title": "BMW CWG F10",
+    "background": "black",
+    "layout": {
+      "mode": "custom",
+      "width": 480,
+      "height": 272
+    },
+    "widgets": [
+      {
+        "id": "title",
+        "type": "text",
+        "text": "BMW CWG F10",
+        "x": 20,
+        "y": 18,
+        "w": 260,
+        "h": 40,
+        "font": "medium",
+        "align": "left",
+        "color": "white"
+      },
+      {
+        "id": "label",
+        "type": "text",
+        "text": "CURRENT",
+        "x": 20,
+        "y": 90,
+        "w": 200,
+        "h": 34,
+        "font": "small",
+        "align": "left",
+        "color": "gray"
+      },
+      {
+        "id": "gear",
+        "type": "gear_value",
+        "source": "current_state",
+        "x": 280,
+        "y": 35,
+        "w": 180,
+        "h": 190,
+        "font": "largest",
+        "align": "center",
+        "color": "white"
+      },
+      {
+        "id": "sport_gear",
+        "type": "text",
+        "source": "sport_gear",
+        "visible_when_state": "S",
+        "format": "M{value}",
+        "x": 275,
+        "y": 205,
+        "w": 180,
+        "h": 50,
+        "font": "large",
+        "align": "center",
+        "color": "white"
+      },
+      {
+        "id": "status",
+        "type": "text",
+        "text": "LIVE CAN",
+        "x": 20,
+        "y": 220,
+        "w": 180,
+        "h": 30,
+        "font": "small",
+        "align": "left",
+        "color": "green"
+      }
+    ]
+  },
+  "ui": {
+    "module_title": "BMW CWG F10",
+    "gear_align": "right",
+    "gear_font": "largest",
+    "gear_x": 280,
+    "gear_y": 35,
+    "gear_w": 180,
+    "gear_h": 190,
+    "show_buttons": false
+  }
 }
