@@ -1,0 +1,88 @@
+{
+  "name": "BMW GWS F10/F30",
+  "type": "tcu",
+  "brand": "BMW",
+  "family": "GWS",
+  "version": "0.1",
+  "transport": "CAN",
+  "baud": 500000,
+  "description": "Bench-test module for BMW electronic gear selector. Uses known working CAN frames from the external selector tester sketch.",
+  "menu": [
+    { "title": "Open CAN", "action": "open_can" },
+    { "title": "Keepalive", "action": "keepalive" },
+    { "title": "Backlight ON", "action": "backlight_on" },
+    { "title": "Set P", "action": "set_p" },
+    { "title": "Set R", "action": "set_r" },
+    { "title": "Set N", "action": "set_n" },
+    { "title": "Set D", "action": "set_d" },
+    { "title": "Set Sport", "action": "set_s" }
+  ],
+  "actions": {
+    "open_can": {
+      "steps": [
+        { "type": "connect_can", "label": "Open CAN 500k for BMW GWS" }
+      ]
+    },
+    "keepalive": {
+      "steps": [
+        { "type": "connect_can", "label": "Open CAN 500k for BMW GWS" },
+        { "type": "can_send", "label": "Send alive frame 0x130", "id": 304, "request": "05 F0 FC FF FF" },
+        { "type": "message", "text": "BMW GWS keepalive sent" }
+      ]
+    },
+    "backlight_on": {
+      "steps": [
+        { "type": "connect_can", "label": "Open CAN 500k for BMW GWS" },
+        { "type": "can_send", "label": "Send alive frame 0x130", "id": 304, "request": "05 F0 FC FF FF" },
+        { "type": "can_send", "label": "Backlight frame 0x202", "id": 514, "request": "FF 00" },
+        { "type": "message", "text": "BMW GWS backlight command sent" }
+      ]
+    },
+    "set_p": {
+      "steps": [
+        { "type": "connect_can", "label": "Open CAN 500k for BMW GWS" },
+        { "type": "can_send", "label": "Send alive frame 0x130", "id": 304, "request": "05 F0 FC FF FF" },
+        { "type": "can_send", "label": "Backlight frame 0x202", "id": 514, "request": "FF 00" },
+        { "type": "can_send", "label": "Selector state P 0x3FD", "id": 1021, "request": "F3 00 20 0C FF" },
+        { "type": "message", "text": "BMW GWS set to P frame sent" }
+      ]
+    },
+    "set_r": {
+      "steps": [
+        { "type": "connect_can", "label": "Open CAN 500k for BMW GWS" },
+        { "type": "can_send", "label": "Send alive frame 0x130", "id": 304, "request": "05 F0 FC FF FF" },
+        { "type": "can_send", "label": "Backlight frame 0x202", "id": 514, "request": "FF 00" },
+        { "type": "can_send", "label": "Selector state R 0x3FD", "id": 1021, "request": "A3 00 40 0C FF" },
+        { "type": "message", "text": "BMW GWS set to R frame sent" }
+      ]
+    },
+    "set_n": {
+      "steps": [
+        { "type": "connect_can", "label": "Open CAN 500k for BMW GWS" },
+        { "type": "can_send", "label": "Send alive frame 0x130", "id": 304, "request": "05 F0 FC FF FF" },
+        { "type": "can_send", "label": "Backlight frame 0x202", "id": 514, "request": "FF 00" },
+        { "type": "can_send", "label": "Selector state N 0x3FD", "id": 1021, "request": "93 00 60 0C FF" },
+        { "type": "message", "text": "BMW GWS set to N frame sent" }
+      ]
+    },
+    "set_d": {
+      "steps": [
+        { "type": "connect_can", "label": "Open CAN 500k for BMW GWS" },
+        { "type": "can_send", "label": "Send alive frame 0x130", "id": 304, "request": "05 F0 FC FF FF" },
+        { "type": "can_send", "label": "Backlight frame 0x202", "id": 514, "request": "FF 00" },
+        { "type": "can_send", "label": "Selector state D 0x3FD", "id": 1021, "request": "03 00 80 0C FF" },
+        { "type": "message", "text": "BMW GWS set to D frame sent" }
+      ]
+    },
+    "set_s": {
+      "steps": [
+        { "type": "connect_can", "label": "Open CAN 500k for BMW GWS" },
+        { "type": "can_send", "label": "Send alive frame 0x130", "id": 304, "request": "05 F0 FC FF FF" },
+        { "type": "can_send", "label": "Backlight frame 0x202", "id": 514, "request": "FF 00" },
+        { "type": "can_send", "label": "Selector state DS 0x3FD", "id": 1021, "request": "A9 10 81 0C FF" },
+        { "type": "can_send", "label": "Sport frame 0x1A1", "id": 417, "request": "FC C6 00 00 81" },
+        { "type": "message", "text": "BMW GWS sport frame sent" }
+      ]
+    }
+  }
+}

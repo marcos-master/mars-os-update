@@ -1,3 +1,5 @@
 {
-  "modules": []
+  "modules": [
+    "/modules/tcu/bmw/gws_f10_f30/module.json"
+  ]
 }
