@@ -3,11 +3,11 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "0.9",
+  "version": "1.0",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW F10/F30 GWS selector stable module. Uses real selector input CAN ID 0x197. Supports P/R/N/D/S and Sport +/- via byte2 variants 0x5E/0x5F and 0x6E/0x6F.",
+  "description": "BMW F10/F30 GWS stable module based on real TRC logs. Input ID 0x197: P button byte3=0xD5, Up=0x1F/0x2F, Down=0x3F/0x4F, Sport=0x7F, Manual -=0x5F, Manual +=0x6F.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 1021,
@@ -163,50 +163,28 @@
     ],
     "transitions": [
       {
-        "label": "Park button old",
+        "label": "P button",
         "id": 407,
         "byte3": 213,
         "to_state": "P",
         "hits": 2
       },
       {
-        "label": "Down to D 3E",
-        "id": 407,
-        "byte2": 62,
-        "to_state": "D",
-        "hits": 2
-      },
-      {
-        "label": "Down to D 3F",
+        "label": "P/R/N to D short",
         "id": 407,
         "byte2": 63,
         "to_state": "D",
         "hits": 2
       },
       {
-        "label": "Long down D 4E",
-        "id": 407,
-        "byte2": 78,
-        "to_state": "D",
-        "hits": 2
-      },
-      {
-        "label": "Long down D 4F",
+        "label": "Long down to D",
         "id": 407,
         "byte2": 79,
         "to_state": "D",
         "hits": 2
       },
       {
-        "label": "D to N 1E",
-        "from_state": "D",
-        "id": 407,
-        "byte2": 30,
-        "to_state": "N",
-        "hits": 2
-      },
-      {
-        "label": "D to N 1F",
+        "label": "D to N",
         "from_state": "D",
         "id": 407,
         "byte2": 31,
@@ -214,15 +192,7 @@
         "hits": 2
       },
       {
-        "label": "S to N 1E",
-        "from_state": "S",
-        "id": 407,
-        "byte2": 30,
-        "to_state": "N",
-        "hits": 2
-      },
-      {
-        "label": "S to N 1F",
+        "label": "S to N",
         "from_state": "S",
         "id": 407,
         "byte2": 31,
@@ -230,15 +200,15 @@
         "hits": 2
       },
       {
-        "label": "N to R 2E",
-        "from_state": "N",
+        "label": "M to N",
+        "from_state": "M",
         "id": 407,
-        "byte2": 46,
-        "to_state": "R",
+        "byte2": 31,
+        "to_state": "N",
         "hits": 2
       },
       {
-        "label": "N to R 2F",
+        "label": "N to R long",
         "from_state": "N",
         "id": 407,
         "byte2": 47,
@@ -246,80 +216,31 @@
         "hits": 2
       },
       {
-        "label": "Any to R 2E",
-        "id": 407,
-        "byte2": 46,
-        "to_state": "R",
-        "hits": 8
-      },
-      {
-        "label": "Any to R 2F",
+        "label": "Any to R long",
         "id": 407,
         "byte2": 47,
         "to_state": "R",
         "hits": 8
       },
       {
-        "label": "To Sport 7E",
-        "id": 407,
-        "byte2": 126,
-        "to_state": "S",
-        "hits": 2
-      },
-      {
-        "label": "To Sport 7F",
+        "label": "Side to Sport",
         "id": 407,
         "byte2": 127,
         "to_state": "S",
         "hits": 2
       },
       {
-        "label": "N to D 3E",
-        "from_state": "N",
+        "label": "Sport back to D",
+        "from_state": "S",
         "id": 407,
-        "byte2": 62,
+        "byte2": 127,
         "to_state": "D",
-        "hits": 2
-      },
-      {
-        "label": "N to D 3F",
-        "from_state": "N",
-        "id": 407,
-        "byte2": 63,
-        "to_state": "D",
-        "hits": 2
-      },
-      {
-        "label": "R to N 3E",
-        "from_state": "R",
-        "id": 407,
-        "byte2": 62,
-        "to_state": "N",
-        "hits": 2
-      },
-      {
-        "label": "R to N 3F",
-        "from_state": "R",
-        "id": 407,
-        "byte2": 63,
-        "to_state": "N",
-        "hits": 2
+        "hits": 8
       }
     ],
     "event_actions": [
       {
-        "label": "Sport - 5E",
-        "when_state": "S",
-        "id": 407,
-        "byte2": 94,
-        "action": "dec_var",
-        "var": "sport_gear",
-        "min": 1,
-        "max": 8,
-        "hits": 1
-      },
-      {
-        "label": "Sport - 5F",
+        "label": "Manual minus real",
         "when_state": "S",
         "id": 407,
         "byte2": 95,
@@ -330,18 +251,7 @@
         "hits": 1
       },
       {
-        "label": "Sport + 6E",
-        "when_state": "S",
-        "id": 407,
-        "byte2": 110,
-        "action": "inc_var",
-        "var": "sport_gear",
-        "min": 1,
-        "max": 8,
-        "hits": 1
-      },
-      {
-        "label": "Sport + 6F",
+        "label": "Manual plus real",
         "when_state": "S",
         "id": 407,
         "byte2": 111,
