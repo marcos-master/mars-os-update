@@ -3,11 +3,11 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "0.8",
-  "monitor_type": "runtime_v1",
+  "version": "0.9",
+  "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW F10/F30 GWS selector module with toggle-based lever logic. Logic is based on BMW-GWS: lever byte2, button byte3, center return transitions, manual M1-M8.",
+  "description": "BMW F10/F30 GWS selector stable module. Uses real selector input CAN ID 0x197. Supports P/R/N/D/S and Sport +/- via byte2 variants 0x5E/0x5F and 0x6E/0x6F.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 1021,
@@ -163,273 +163,196 @@
     ],
     "transitions": [
       {
-        "label": "Park",
+        "label": "Park button old",
         "id": 407,
         "byte3": 213,
         "to_state": "P",
         "hits": 2
       },
       {
-        "label": "P to D",
-        "from_state": "P",
+        "label": "Down to D 3E",
         "id": 407,
-        "byte2": 63,
-        "byte3": 192,
+        "byte2": 62,
         "to_state": "D",
-        "hits": 9
+        "hits": 2
       },
       {
-        "label": "Any to D long",
+        "label": "Down to D 3F",
+        "id": 407,
+        "byte2": 63,
+        "to_state": "D",
+        "hits": 2
+      },
+      {
+        "label": "Long down D 4E",
+        "id": 407,
+        "byte2": 78,
+        "to_state": "D",
+        "hits": 2
+      },
+      {
+        "label": "Long down D 4F",
         "id": 407,
         "byte2": 79,
-        "byte3": 192,
         "to_state": "D",
-        "hits": 9
+        "hits": 2
       },
       {
-        "label": "R to N",
-        "from_state": "R",
+        "label": "D to N 1E",
+        "from_state": "D",
         "id": 407,
-        "byte2": 31,
-        "byte3": 192,
+        "byte2": 30,
         "to_state": "N",
-        "hits": 9
+        "hits": 2
       },
       {
-        "label": "N to D",
-        "from_state": "N",
-        "id": 407,
-        "byte2": 63,
-        "byte3": 192,
-        "to_state": "D",
-        "hits": 9
-      },
-      {
-        "label": "D to N",
+        "label": "D to N 1F",
         "from_state": "D",
         "id": 407,
         "byte2": 31,
-        "byte3": 192,
         "to_state": "N",
-        "hits": 9
-      },
-      {
-        "label": "N to R",
-        "from_state": "N",
-        "id": 407,
-        "byte2": 47,
-        "byte3": 192,
-        "to_state": "R",
-        "hits": 9
-      },
-      {
-        "label": "Any to R long",
-        "id": 407,
-        "byte2": 47,
-        "byte3": 192,
-        "to_state": "R",
-        "hits": 9
-      },
-      {
-        "label": "To Sport",
-        "from_state": "D",
-        "id": 407,
-        "byte2": 127,
-        "to_state": "S",
         "hits": 2
       },
       {
-        "label": "To Sport from N",
-        "from_state": "N",
-        "id": 407,
-        "byte2": 127,
-        "to_state": "S",
-        "hits": 2
-      },
-      {
-        "label": "To Sport from R",
-        "from_state": "R",
-        "id": 407,
-        "byte2": 127,
-        "to_state": "S",
-        "hits": 2
-      },
-      {
-        "label": "S to D",
+        "label": "S to N 1E",
         "from_state": "S",
         "id": 407,
-        "byte2": 63,
-        "byte3": 192,
-        "to_state": "D",
-        "hits": 9
+        "byte2": 30,
+        "to_state": "N",
+        "hits": 2
       },
       {
-        "label": "S to N",
+        "label": "S to N 1F",
         "from_state": "S",
         "id": 407,
         "byte2": 31,
-        "byte3": 192,
         "to_state": "N",
-        "hits": 9
+        "hits": 2
+      },
+      {
+        "label": "N to R 2E",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 46,
+        "to_state": "R",
+        "hits": 2
+      },
+      {
+        "label": "N to R 2F",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 47,
+        "to_state": "R",
+        "hits": 2
+      },
+      {
+        "label": "Any to R 2E",
+        "id": 407,
+        "byte2": 46,
+        "to_state": "R",
+        "hits": 8
+      },
+      {
+        "label": "Any to R 2F",
+        "id": 407,
+        "byte2": 47,
+        "to_state": "R",
+        "hits": 8
+      },
+      {
+        "label": "To Sport 7E",
+        "id": 407,
+        "byte2": 126,
+        "to_state": "S",
+        "hits": 2
+      },
+      {
+        "label": "To Sport 7F",
+        "id": 407,
+        "byte2": 127,
+        "to_state": "S",
+        "hits": 2
+      },
+      {
+        "label": "N to D 3E",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 62,
+        "to_state": "D",
+        "hits": 2
+      },
+      {
+        "label": "N to D 3F",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 63,
+        "to_state": "D",
+        "hits": 2
+      },
+      {
+        "label": "R to N 3E",
+        "from_state": "R",
+        "id": 407,
+        "byte2": 62,
+        "to_state": "N",
+        "hits": 2
+      },
+      {
+        "label": "R to N 3F",
+        "from_state": "R",
+        "id": 407,
+        "byte2": 63,
+        "to_state": "N",
+        "hits": 2
       }
     ],
-    "event_actions": [],
-    "manual_states_use": "S"
+    "event_actions": [
+      {
+        "label": "Sport - 5E",
+        "when_state": "S",
+        "id": 407,
+        "byte2": 94,
+        "action": "dec_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      },
+      {
+        "label": "Sport - 5F",
+        "when_state": "S",
+        "id": 407,
+        "byte2": 95,
+        "action": "dec_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      },
+      {
+        "label": "Sport + 6E",
+        "when_state": "S",
+        "id": 407,
+        "byte2": 110,
+        "action": "inc_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      },
+      {
+        "label": "Sport + 6F",
+        "when_state": "S",
+        "id": 407,
+        "byte2": 111,
+        "action": "inc_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      }
+    ]
   },
   "menu": [],
-  "actions": {},
-  "lever_logic": {
-    "type": "bmw_gws_toggle",
-    "input": {
-      "id": 407,
-      "lever_byte": 2,
-      "button_byte": 3,
-      "center": 14,
-      "manual_center": 126
-    },
-    "positions": {
-      "0x0E": "Center",
-      "0x1E": "Up_R",
-      "0x2E": "Up_P",
-      "0x3E": "Down_D",
-      "0x7E": "Side_S",
-      "0x5E": "Manual_Down",
-      "0x6E": "Manual_Up"
-    },
-    "buttons": {
-      "park_mask": 1,
-      "unlock_mask": 2
-    },
-    "variables": {
-      "current_gear": "P",
-      "manual_gear": 1,
-      "previous_lever_position": 14,
-      "current_lever_position": 14,
-      "lever_returned_to_center": true,
-      "lever_returned_to_manual_center": true,
-      "toggle_timeout_ms": 120
-    },
-    "rules": [
-      {
-        "name": "Unlock P to N",
-        "when": {
-          "gear": "P",
-          "lever": 14,
-          "button_mask": 2
-        },
-        "set": {
-          "gear": "N"
-        }
-      },
-      {
-        "name": "Park button",
-        "when": {
-          "lever": 14,
-          "button_mask": 1
-        },
-        "set": {
-          "gear": "P"
-        }
-      },
-      {
-        "name": "Up toggle",
-        "on_return_to": 14,
-        "previous_lever": 30,
-        "transitions": [
-          {
-            "from": "N",
-            "to": "R"
-          },
-          {
-            "from": "D",
-            "to": "N"
-          },
-          {
-            "from": "M*",
-            "to": "N"
-          },
-          {
-            "from": "*",
-            "to": "N"
-          }
-        ]
-      },
-      {
-        "name": "Up plus toggle to park",
-        "on_return_to": 14,
-        "previous_lever": 46,
-        "set": {
-          "gear": "P"
-        }
-      },
-      {
-        "name": "Down toggle",
-        "on_return_to": 14,
-        "previous_lever": 62,
-        "transitions": [
-          {
-            "from": "N",
-            "to": "D"
-          },
-          {
-            "from": "R",
-            "to": "N"
-          },
-          {
-            "from": "M*",
-            "to": "D"
-          },
-          {
-            "from": "*",
-            "to": "D"
-          }
-        ]
-      },
-      {
-        "name": "Side toggle",
-        "on_return_to": 14,
-        "previous_lever": 126,
-        "transitions": [
-          {
-            "from": "D",
-            "to": "M1",
-            "manual_gear": 1
-          },
-          {
-            "from": "M*",
-            "to": "D"
-          },
-          {
-            "from": "*",
-            "to": "D"
-          }
-        ]
-      },
-      {
-        "name": "Manual minus",
-        "when_state_prefix": "M",
-        "on_return_to": 126,
-        "previous_lever": 94,
-        "manual_delta": -1,
-        "min": 1,
-        "max": 8,
-        "set_gear_from_manual": true
-      },
-      {
-        "name": "Manual plus",
-        "when_state_prefix": "M",
-        "on_return_to": 126,
-        "previous_lever": 110,
-        "manual_delta": 1,
-        "min": 1,
-        "max": 8,
-        "set_gear_from_manual": true
-      }
-    ],
-    "display": {
-      "widget": "gear",
-      "format": "{gear}",
-      "manual_format": "M{manual_gear}"
-    }
-  }
+  "actions": {}
 }
