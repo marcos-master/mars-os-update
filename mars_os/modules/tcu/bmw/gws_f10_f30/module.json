@@ -4,6 +4,7 @@
   "brand": "BMW",
   "family": "GWS",
   "version": "0.1",
+  "monitor_type": "bmw_gws_live",
   "transport": "CAN",
   "baud": 500000,
   "description": "Bench-test module for BMW electronic gear selector. Uses known working CAN frames from the external selector tester sketch.",
