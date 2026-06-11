@@ -3,315 +3,82 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "0.4-display-only",
-  "monitor_type": "gws_status_view",
+  "version": "1.0-runtime-v1",
+  "runtime": "mars_runtime_v1",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW GWS F10/F30 selector status view. No buttons. Intended for firmware-side GWS viewer; live CAN config is kept in JSON.",
-  "live_can": {
-    "baud": 500000,
-    "state_frame_id": 1021,
-    "state_interval_ms": 200,
-    "initial_state": "P",
-    "states": [
-      {
-        "name": "P",
-        "frames": [
-          "F3 00 20 0C FF",
-          "6E 01 20 0C FF",
-          "D4 02 20 0C FF",
-          "49 03 20 0C FF",
-          "BD 04 20 0C FF",
-          "20 05 20 0C FF",
-          "9A 06 20 0C FF",
-          "07 07 20 0C FF",
-          "6F 08 20 0C FF",
-          "F2 09 20 0C FF",
-          "48 0A 20 0C FF",
-          "D5 0B 20 0C FF",
-          "21 0C 20 0C FF",
-          "BC 0D 20 0C FF",
-          "06 0E 20 0C FF"
-        ]
-      },
-      {
-        "name": "R",
-        "frames": [
-          "A3 00 40 0C FF",
-          "3E 01 40 0C FF",
-          "84 02 40 0C FF",
-          "19 03 40 0C FF",
-          "ED 04 40 0C FF",
-          "70 05 40 0C FF",
-          "CA 06 40 0C FF",
-          "57 07 40 0C FF",
-          "3F 08 40 0C FF",
-          "A2 09 40 0C FF",
-          "18 0A 40 0C FF",
-          "85 0B 40 0C FF",
-          "71 0C 40 0C FF",
-          "EC 0D 40 0C FF",
-          "56 0E 40 0C FF"
-        ]
-      },
-      {
-        "name": "N",
-        "frames": [
-          "93 00 60 0C FF",
-          "0E 01 60 0C FF",
-          "B4 02 60 0C FF",
-          "29 03 60 0C FF",
-          "DD 04 60 0C FF",
-          "40 05 60 0C FF",
-          "FA 06 60 0C FF",
-          "67 07 60 0C FF",
-          "0F 08 60 0C FF",
-          "92 09 60 0C FF",
-          "28 0A 60 0C FF",
-          "B5 0B 60 0C FF",
-          "41 0C 60 0C FF",
-          "DC 0D 60 0C FF",
-          "66 0E 60 0C FF"
-        ]
-      },
-      {
-        "name": "D",
-        "frames": [
-          "03 00 80 0C FF",
-          "9E 01 80 0C FF",
-          "24 02 80 0C FF",
-          "B9 03 80 0C FF",
-          "4D 04 80 0C FF",
-          "D0 05 80 0C FF",
-          "6A 06 80 0C FF",
-          "F7 07 80 0C FF",
-          "9F 08 80 0C FF",
-          "02 09 80 0C FF",
-          "B8 0A 80 0C FF",
-          "25 0B 80 0C FF",
-          "D1 0C 80 0C FF",
-          "4C 0D 80 0C FF",
-          "F6 0E 80 0C FF"
-        ]
-      },
-      {
-        "name": "S",
-        "frames": [
-          "A9 10 81 0C FF",
-          "34 11 81 0C FF",
-          "8E 12 81 0C FF",
-          "13 13 81 0C FF",
-          "E7 14 81 0C FF",
-          "7A 15 81 0C FF",
-          "C0 16 81 0C FF",
-          "5D 17 81 0C FF",
-          "35 18 81 0C FF",
-          "A8 19 81 0C FF",
-          "12 1A 81 0C FF",
-          "8F 1B 81 0C FF",
-          "7B 1C 81 0C FF",
-          "E6 1D 81 0C FF",
-          "5C 1E 81 0C FF"
-        ]
-      }
-    ],
-    "periodic_frames": [
-      {
-        "label": "status",
-        "id": 304,
-        "interval_ms": 500,
-        "frames": [
-          "05 F0 FC FF FF"
-        ]
-      },
-      {
-        "label": "sport_seq",
-        "id": 2586,
-        "interval_ms": 200,
-        "frames": [
-          "FC C6 00 00 81",
-          "61 C7 00 00 81",
-          "09 C8 00 00 81",
-          "94 C9 00 00 81",
-          "2E CA 00 00 81",
-          "B3 CB 00 00 81",
-          "47 CC 00 00 81",
-          "DA CD 00 00 81",
-          "60 CE 00 00 81",
-          "95 C0 00 00 81",
-          "08 C1 00 00 81",
-          "B2 C2 00 00 81",
-          "2F C3 00 00 81",
-          "DB C4 00 00 81",
-          "46 C5 00 00 81"
-        ]
-      },
-      {
-        "label": "backlight",
-        "id": 514,
-        "interval_ms": 1000,
-        "frames": [
-          "FF 00"
-        ]
-      }
-    ],
-    "vars": [
-      {
-        "name": "sport_gear",
-        "value": 1
-      }
-    ],
-    "transitions": [
-      {
-        "label": "Park",
-        "id": 407,
-        "byte3": 213,
-        "to_state": "P",
-        "hits": 2
-      },
-      {
-        "label": "P to D",
-        "from_state": "P",
-        "id": 407,
-        "byte2": 63,
-        "byte3": 192,
-        "to_state": "D",
-        "hits": 9
-      },
-      {
-        "label": "Any to D long",
-        "id": 407,
-        "byte2": 79,
-        "byte3": 192,
-        "to_state": "D",
-        "hits": 9
-      },
-      {
-        "label": "R to N",
-        "from_state": "R",
-        "id": 407,
-        "byte2": 31,
-        "byte3": 192,
-        "to_state": "N",
-        "hits": 9
-      },
-      {
-        "label": "N to D",
-        "from_state": "N",
-        "id": 407,
-        "byte2": 63,
-        "byte3": 192,
-        "to_state": "D",
-        "hits": 9
-      },
-      {
-        "label": "D to N",
-        "from_state": "D",
-        "id": 407,
-        "byte2": 31,
-        "byte3": 192,
-        "to_state": "N",
-        "hits": 9
-      },
-      {
-        "label": "N to R",
-        "from_state": "N",
-        "id": 407,
-        "byte2": 47,
-        "byte3": 192,
-        "to_state": "R",
-        "hits": 9
-      },
-      {
-        "label": "Any to R long",
-        "id": 407,
-        "byte2": 47,
-        "byte3": 192,
-        "to_state": "R",
-        "hits": 9
-      },
-      {
-        "label": "To Sport",
-        "from_state": "D",
-        "id": 407,
-        "byte2": 127,
-        "to_state": "S",
-        "hits": 2
-      },
-      {
-        "label": "To Sport from N",
-        "from_state": "N",
-        "id": 407,
-        "byte2": 127,
-        "to_state": "S",
-        "hits": 2
-      },
-      {
-        "label": "To Sport from R",
-        "from_state": "R",
-        "id": 407,
-        "byte2": 127,
-        "to_state": "S",
-        "hits": 2
-      },
-      {
-        "label": "S to D",
-        "from_state": "S",
-        "id": 407,
-        "byte2": 63,
-        "byte3": 192,
-        "to_state": "D",
-        "hits": 9
-      },
-      {
-        "label": "S to N",
-        "from_state": "S",
-        "id": 407,
-        "byte2": 31,
-        "byte3": 192,
-        "to_state": "N",
-        "hits": 9
-      }
-    ],
-    "event_actions": [
-      {
-        "label": "Sport -",
-        "when_state": "S",
-        "id": 1374,
-        "byte7": 94,
-        "action": "dec_var",
-        "var": "sport_gear",
-        "min": 1,
-        "max": 8,
-        "hits": 1
-      },
-      {
-        "label": "Sport +",
-        "when_state": "S",
-        "id": 1374,
-        "byte7": 110,
-        "action": "inc_var",
-        "var": "sport_gear",
-        "min": 1,
-        "max": 8,
-        "hits": 1
-      }
+
+  "screen": {
+    "title": "BMW GWS",
+    "widgets": [
+      { "id": "gear", "type": "big_text", "text": "P", "x": 300, "y": 120, "size": 7 },
+      { "id": "status", "type": "text", "text": "CAN idle", "x": 40, "y": 420, "size": 2 }
     ]
   },
-  "menu": [],
-  "actions": {},
-  "display": {
-    "mode": "selector_status",
-    "title": "BMW GWS",
-    "show_gears": [
-      "P",
-      "R",
-      "N",
-      "D",
-      "S"
+
+  "vars": {
+    "gear": "P",
+    "state_index": 0,
+    "sport_index": 0,
+    "long_down": 0,
+    "short_down": 0,
+    "long_up": 0,
+    "short_up": 0
+  },
+
+  "frames": {
+    "keepalive": { "id": 304, "data": "05 F0 FC FF FF" },
+    "backlight": { "id": 514, "data": "FF 00" },
+    "sport_seq": {
+      "id": 2586,
+      "sequence": [
+        "FC C6 00 00 81", "61 C7 00 00 81", "09 C8 00 00 81", "94 C9 00 00 81", "2E CA 00 00 81",
+        "B3 CB 00 00 81", "47 CC 00 00 81", "DA CD 00 00 81", "60 CE 00 00 81", "95 C0 00 00 81",
+        "08 C1 00 00 81", "B2 C2 00 00 81", "2F C3 00 00 81", "DB C4 00 00 81", "46 C5 00 00 81"
+      ]
+    },
+    "gear_states": {
+      "id": 1021,
+      "P": ["F3 00 20 0C FF", "6E 01 20 0C FF", "D4 02 20 0C FF", "49 03 20 0C FF", "BD 04 20 0C FF", "20 05 20 0C FF", "9A 06 20 0C FF", "07 07 20 0C FF", "6F 08 20 0C FF", "F2 09 20 0C FF", "48 0A 20 0C FF", "D5 0B 20 0C FF", "21 0C 20 0C FF", "BC 0D 20 0C FF", "06 0E 20 0C FF"],
+      "R": ["A3 00 40 0C FF", "3E 01 40 0C FF", "84 02 40 0C FF", "19 03 40 0C FF", "ED 04 40 0C FF", "70 05 40 0C FF", "CA 06 40 0C FF", "57 07 40 0C FF", "3F 08 40 0C FF", "A2 09 40 0C FF", "18 0A 40 0C FF", "85 0B 40 0C FF", "71 0C 40 0C FF", "EC 0D 40 0C FF", "56 0E 40 0C FF"],
+      "N": ["93 00 60 0C FF", "0E 01 60 0C FF", "B4 02 60 0C FF", "29 03 60 0C FF", "DD 04 60 0C FF", "40 05 60 0C FF", "FA 06 60 0C FF", "67 07 60 0C FF", "0F 08 60 0C FF", "92 09 60 0C FF", "28 0A 60 0C FF", "B5 0B 60 0C FF", "41 0C 60 0C FF", "DC 0D 60 0C FF", "66 0E 60 0C FF"],
+      "D": ["03 00 80 0C FF", "9E 01 80 0C FF", "24 02 80 0C FF", "B9 03 80 0C FF", "4D 04 80 0C FF", "D0 05 80 0C FF", "6A 06 80 0C FF", "F7 07 80 0C FF", "9F 08 80 0C FF", "02 09 80 0C FF", "B8 0A 80 0C FF", "25 0B 80 0C FF", "D1 0C 80 0C FF", "4C 0D 80 0C FF", "F6 0E 80 0C FF"],
+      "S": ["A9 10 81 0C FF", "34 11 81 0C FF", "8E 12 81 0C FF", "13 13 81 0C FF", "E7 14 81 0C FF", "7A 15 81 0C FF", "C0 16 81 0C FF", "5D 17 81 0C FF", "35 18 81 0C FF", "A8 19 81 0C FF", "12 1A 81 0C FF", "8F 1B 81 0C FF", "7B 1C 81 0C FF", "E6 1D 81 0C FF", "5C 1E 81 0C FF"]
+    }
+  },
+
+  "on_enter": [
+    { "type": "can_open", "baud": 500000, "mode": "normal" },
+    { "type": "ui_set", "widget": "gear", "value": "P" },
+    { "type": "ui_set", "widget": "status", "value": "CAN active" },
+    { "type": "timer_start", "name": "send_gear", "interval_ms": 200 },
+    { "type": "timer_start", "name": "keepalive", "interval_ms": 1000 },
+    { "type": "timer_start", "name": "sport_seq", "interval_ms": 200 }
+  ],
+
+  "on_exit": [
+    { "type": "timer_stop_all" },
+    { "type": "can_close" }
+  ],
+
+  "on_can": [
+    { "match": { "id": 407, "byte3": 213 }, "then": [{ "type": "set", "var": "gear", "value": "P" }, { "type": "ui_set", "widget": "gear", "value_from": "gear" }] },
+    { "match": { "id": 407, "byte2": 78, "hits": 9 }, "then": [{ "type": "set", "var": "gear", "value": "D" }, { "type": "ui_set", "widget": "gear", "value_from": "gear" }] },
+    { "match": { "id": 407, "byte2": 62, "hits": 9 }, "then": [{ "type": "shift_down_short" }, { "type": "ui_set", "widget": "gear", "value_from": "gear" }] },
+    { "match": { "id": 407, "byte2": 46, "hits": 9 }, "then": [{ "type": "set", "var": "gear", "value": "R" }, { "type": "ui_set", "widget": "gear", "value_from": "gear" }] },
+    { "match": { "id": 407, "byte2": 30, "hits": 9 }, "then": [{ "type": "shift_up_short" }, { "type": "ui_set", "widget": "gear", "value_from": "gear" }] },
+    { "match": { "id": 407, "byte2": 126 }, "then": [{ "type": "set", "var": "gear", "value": "S" }, { "type": "ui_set", "widget": "gear", "value_from": "gear" }] }
+  ],
+
+  "timers": {
+    "send_gear": [
+      { "type": "can_send_sequence", "id": 1021, "sequence_from": "frames.gear_states.${gear}", "index_var": "state_index" }
     ],
-    "initial_state": "P",
-    "status_text": "Waiting for selector CAN frames",
-    "no_buttons": true
+    "keepalive": [
+      { "type": "can_send", "id": 304, "data": "05 F0 FC FF FF" }
+    ],
+    "sport_seq": [
+      { "type": "can_send_sequence", "id": 2586, "sequence_from": "frames.sport_seq.sequence", "index_var": "sport_index" }
+    ]
   }
 }
