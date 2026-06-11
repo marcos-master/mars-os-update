@@ -3,11 +3,11 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "0.6",
-  "monitor_type": "live_can",
+  "version": "0.8",
+  "monitor_type": "runtime_v1",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW F10/F30 GWS selector live display. No buttons. MARS OS Runtime starts live_can and JSON controls P/R/N/D/S + Sport +/-.",
+  "description": "BMW F10/F30 GWS selector module with toggle-based lever logic. Logic is based on BMW-GWS: lever byte2, button byte3, center return transitions, manual M1-M8.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 1021,
@@ -273,97 +273,163 @@
         "hits": 9
       }
     ],
-    "event_actions": [
-      {
-        "label": "Sport -",
-        "when_state": "S",
-        "id": 1374,
-        "byte7": 94,
-        "action": "dec_var",
-        "var": "sport_gear",
-        "min": 1,
-        "max": 8,
-        "hits": 1
-      },
-      {
-        "label": "Sport +",
-        "when_state": "S",
-        "id": 1374,
-        "byte7": 110,
-        "action": "inc_var",
-        "var": "sport_gear",
-        "min": 1,
-        "max": 8,
-        "hits": 1
-      },
-      {
-        "label": "Sport - b6",
-        "when_state": "S",
-        "id": 1374,
-        "byte6": 94,
-        "action": "dec_var",
-        "var": "sport_gear",
-        "min": 1,
-        "max": 8,
-        "hits": 1
-      },
-      {
-        "label": "Sport + b6",
-        "when_state": "S",
-        "id": 1374,
-        "byte6": 110,
-        "action": "inc_var",
-        "var": "sport_gear",
-        "min": 1,
-        "max": 8,
-        "hits": 1
-      },
-      {
-        "label": "Sport - b5",
-        "when_state": "S",
-        "id": 1374,
-        "byte5": 94,
-        "action": "dec_var",
-        "var": "sport_gear",
-        "min": 1,
-        "max": 8,
-        "hits": 1
-      },
-      {
-        "label": "Sport + b5",
-        "when_state": "S",
-        "id": 1374,
-        "byte5": 110,
-        "action": "inc_var",
-        "var": "sport_gear",
-        "min": 1,
-        "max": 8,
-        "hits": 1
-      },
-      {
-        "label": "Sport - b2",
-        "when_state": "S",
-        "id": 1374,
-        "byte2": 94,
-        "action": "dec_var",
-        "var": "sport_gear",
-        "min": 1,
-        "max": 8,
-        "hits": 1
-      },
-      {
-        "label": "Sport + b2",
-        "when_state": "S",
-        "id": 1374,
-        "byte2": 110,
-        "action": "inc_var",
-        "var": "sport_gear",
-        "min": 1,
-        "max": 8,
-        "hits": 1
-      }
-    ]
+    "event_actions": [],
+    "manual_states_use": "S"
   },
   "menu": [],
-  "actions": {}
+  "actions": {},
+  "lever_logic": {
+    "type": "bmw_gws_toggle",
+    "input": {
+      "id": 407,
+      "lever_byte": 2,
+      "button_byte": 3,
+      "center": 14,
+      "manual_center": 126
+    },
+    "positions": {
+      "0x0E": "Center",
+      "0x1E": "Up_R",
+      "0x2E": "Up_P",
+      "0x3E": "Down_D",
+      "0x7E": "Side_S",
+      "0x5E": "Manual_Down",
+      "0x6E": "Manual_Up"
+    },
+    "buttons": {
+      "park_mask": 1,
+      "unlock_mask": 2
+    },
+    "variables": {
+      "current_gear": "P",
+      "manual_gear": 1,
+      "previous_lever_position": 14,
+      "current_lever_position": 14,
+      "lever_returned_to_center": true,
+      "lever_returned_to_manual_center": true,
+      "toggle_timeout_ms": 120
+    },
+    "rules": [
+      {
+        "name": "Unlock P to N",
+        "when": {
+          "gear": "P",
+          "lever": 14,
+          "button_mask": 2
+        },
+        "set": {
+          "gear": "N"
+        }
+      },
+      {
+        "name": "Park button",
+        "when": {
+          "lever": 14,
+          "button_mask": 1
+        },
+        "set": {
+          "gear": "P"
+        }
+      },
+      {
+        "name": "Up toggle",
+        "on_return_to": 14,
+        "previous_lever": 30,
+        "transitions": [
+          {
+            "from": "N",
+            "to": "R"
+          },
+          {
+            "from": "D",
+            "to": "N"
+          },
+          {
+            "from": "M*",
+            "to": "N"
+          },
+          {
+            "from": "*",
+            "to": "N"
+          }
+        ]
+      },
+      {
+        "name": "Up plus toggle to park",
+        "on_return_to": 14,
+        "previous_lever": 46,
+        "set": {
+          "gear": "P"
+        }
+      },
+      {
+        "name": "Down toggle",
+        "on_return_to": 14,
+        "previous_lever": 62,
+        "transitions": [
+          {
+            "from": "N",
+            "to": "D"
+          },
+          {
+            "from": "R",
+            "to": "N"
+          },
+          {
+            "from": "M*",
+            "to": "D"
+          },
+          {
+            "from": "*",
+            "to": "D"
+          }
+        ]
+      },
+      {
+        "name": "Side toggle",
+        "on_return_to": 14,
+        "previous_lever": 126,
+        "transitions": [
+          {
+            "from": "D",
+            "to": "M1",
+            "manual_gear": 1
+          },
+          {
+            "from": "M*",
+            "to": "D"
+          },
+          {
+            "from": "*",
+            "to": "D"
+          }
+        ]
+      },
+      {
+        "name": "Manual minus",
+        "when_state_prefix": "M",
+        "on_return_to": 126,
+        "previous_lever": 94,
+        "manual_delta": -1,
+        "min": 1,
+        "max": 8,
+        "set_gear_from_manual": true
+      },
+      {
+        "name": "Manual plus",
+        "when_state_prefix": "M",
+        "on_return_to": 126,
+        "previous_lever": 110,
+        "manual_delta": 1,
+        "min": 1,
+        "max": 8,
+        "set_gear_from_manual": true
+      }
+    ],
+    "display": {
+      "widget": "gear",
+      "format": "{gear}",
+      "manual_format": "M{manual_gear}"
+    }
+  }
 }
