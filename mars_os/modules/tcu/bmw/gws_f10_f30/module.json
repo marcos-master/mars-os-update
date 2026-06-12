@@ -410,7 +410,8 @@
   "actions": {},
   "screen": {
     "type": "selector_status",
-    "title": "BMW CWG F10",
+    "title": "BMW CWG F10
+               -2012/02",
     "background": "black",
     "layout": {
       "mode": "custom",
