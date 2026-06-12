@@ -3,11 +3,11 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "1.3",
+  "version": "1.4",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW CWG F10 selector module. Tester-principle switching logic kept. Display layout: current gear on right side with largest font.",
+  "description": "BMW CWG F10 selector module. Clean UI: big gear at configured coordinates, POSITION caption under gear, no RX/TX details.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 1021,
@@ -430,24 +430,12 @@
         "color": "white"
       },
       {
-        "id": "label",
-        "type": "text",
-        "text": "CURRENT",
-        "x": 20,
-        "y": 90,
-        "w": 200,
-        "h": 34,
-        "font": "small",
-        "align": "left",
-        "color": "gray"
-      },
-      {
         "id": "gear",
         "type": "gear_value",
         "source": "current_state",
-        "x": 280,
-        "y": 35,
-        "w": 180,
+        "x": 180,
+        "y": 80,
+        "w": 200,
         "h": 190,
         "font": "largest",
         "align": "center",
@@ -459,36 +447,40 @@
         "source": "sport_gear",
         "visible_when_state": "S",
         "format": "M{value}",
-        "x": 275,
+        "x": 180,
         "y": 205,
-        "w": 180,
+        "w": 200,
         "h": 50,
         "font": "large",
         "align": "center",
         "color": "white"
       },
       {
-        "id": "status",
+        "id": "position_caption",
         "type": "text",
-        "text": "LIVE CAN",
-        "x": 20,
-        "y": 220,
-        "w": 180,
+        "text": "POSITION",
+        "x": 180,
+        "y": 172,
+        "w": 200,
         "h": 30,
         "font": "small",
-        "align": "left",
-        "color": "green"
+        "align": "center",
+        "color": "gray"
       }
     ]
   },
   "ui": {
     "module_title": "BMW CWG F10",
-    "gear_align": "right",
+    "gear_align": "center",
     "gear_font": "largest",
     "gear_x": 180,
     "gear_y": 80,
     "gear_w": 200,
     "gear_h": 190,
-    "show_buttons": false
+    "show_buttons": false,
+    "position_label_x": 180,
+    "position_label_y": 172,
+    "position_label_w": 200,
+    "show_panels": false
   }
 }
