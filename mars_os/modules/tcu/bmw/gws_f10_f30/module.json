@@ -3,11 +3,11 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "3.0",
+  "version": "3.1",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW CWG F10 selector module. M/S no-jump fixed. Return from M/S to D is allowed only by short-down lever 0x3E/0x3F, not by held side 0x7E/0x7F.",
+  "description": "BMW CWG F10 selector module. M/S no-jump fixed. Return from M/S to D is now detected by side-gate return to center 0x0E/0x0F, not by held side 0x7E/0x7F.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 1021,
@@ -356,6 +356,22 @@
         "id": 407,
         "byte2": 127,
         "to_state": "S",
+        "hits": 2
+      },
+      {
+        "label": "S to D center",
+        "from_state": "S",
+        "id": 407,
+        "byte2": 14,
+        "to_state": "D",
+        "hits": 2
+      },
+      {
+        "label": "S to D center real",
+        "from_state": "S",
+        "id": 407,
+        "byte2": 15,
+        "to_state": "D",
         "hits": 2
       }
     ],
