@@ -1,9 +1,9 @@
 {
-  "name": "BMW CWG F10",
+  "name": "BMW CWG F10 -2012.02",
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "3.8",
+  "version": "3.9",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
@@ -426,7 +426,7 @@
   "actions": {},
   "screen": {
     "type": "selector_status",
-    "title": "BMW CWG F10",
+    "title": "BMW CWG F10 -2012.02",
     "background": "black",
     "layout": {
       "mode": "custom",
@@ -437,7 +437,7 @@
       {
         "id": "title",
         "type": "text",
-        "text": "BMW CWG F10",
+        "text": "BMW CWG F10-2012.02",
         "x": 20,
         "y": 18,
         "w": 260,
@@ -516,7 +516,7 @@
     ]
   },
   "ui": {
-    "module_title": "BMW CWG F10",
+    "module_title": "BMW CWG F10-2012.02",
     "gear_align": "center",
     "gear_font": "largest",
     "gear_x": 180,
