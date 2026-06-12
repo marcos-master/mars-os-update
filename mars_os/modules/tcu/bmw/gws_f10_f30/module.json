@@ -3,7 +3,7 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "3.2",
+  "version": "3.3",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
