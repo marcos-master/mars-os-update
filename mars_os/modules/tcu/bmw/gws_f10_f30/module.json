@@ -3,11 +3,11 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "1.4",
+  "version": "1.5",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW CWG F10 selector module. Clean UI: big gear at configured coordinates, POSITION caption under gear, no RX/TX details.",
+  "description": "BMW CWG F10 selector module. Clean UI with big gear, POSITION caption, and bottom live_can link status for CWG connection.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 1021,
@@ -481,6 +481,6 @@
     "position_label_x": 180,
     "position_label_y": 172,
     "position_label_w": 200,
-    "show_panels": false
+    "show_panels": true
   }
 }
