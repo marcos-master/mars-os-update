@@ -3,11 +3,11 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "3.1",
+  "version": "3.2",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW CWG F10 selector module. M/S no-jump fixed. Return from M/S to D is now detected by side-gate return to center 0x0E/0x0F, not by held side 0x7E/0x7F.",
+  "description": "BMW CWG F10 Stable. M/S works without jumping, M/S to D by center return, module version shown bottom-right.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 1021,
@@ -499,6 +499,19 @@
         "font": "small",
         "align": "left",
         "color": "white"
+      },
+      {
+        "id": "module_version",
+        "type": "text",
+        "source": "version",
+        "format": "v{value}",
+        "x": 410,
+        "y": 248,
+        "w": 62,
+        "h": 20,
+        "font": "small",
+        "align": "right",
+        "color": "gray"
       }
     ]
   },
@@ -514,6 +527,10 @@
     "position_label_x": 180,
     "position_label_y": 172,
     "position_label_w": 200,
-    "show_panels": true
+    "show_panels": true,
+    "version_x": 410,
+    "version_y": 248,
+    "version_w": 62,
+    "show_version": true
   }
 }
