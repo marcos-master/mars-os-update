@@ -3,11 +3,11 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "2.6",
+  "version": "2.7",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW CWG F10 selector module. Framed UI with big gear, POSITION caption, left-aligned JSON live_can link status, M/S idle display, and temporary plus/minus sport indication.",
+  "description": "BMW CWG F10 selector module. Framed UI with big gear, POSITION caption, left-aligned JSON live_can link status, M/S idle display, temporary plus/minus sport indication, and corrected S to D return logic.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 1021,
@@ -355,6 +355,22 @@
         "id": 407,
         "byte2": 127,
         "to_state": "S",
+        "hits": 2
+      },
+      {
+        "label": "S to D side",
+        "from_state": "S",
+        "id": 407,
+        "byte2": 126,
+        "to_state": "D",
+        "hits": 2
+      },
+      {
+        "label": "S to D side real",
+        "from_state": "S",
+        "id": 407,
+        "byte2": 127,
+        "to_state": "D",
         "hits": 2
       }
     ],
