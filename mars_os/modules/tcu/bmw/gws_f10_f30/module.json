@@ -1,13 +1,13 @@
 {
-  "name": "BMW GWS F10 -02.2012",
+  "name": "BMW CWG F10",
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "3.7",
+  "version": "3.8",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW GWS F10 selector up to 02.2012. Stable release with corrected M/S logic, D return by center position, sport gear support, FreeRTOS runtime compatible.",
+  "description": "BMW CWG F10 Stable. M/S works without jumping, M/S to D by center return, module version shown bottom-right.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 1021,
@@ -426,7 +426,7 @@
   "actions": {},
   "screen": {
     "type": "selector_status",
-    "title": "BMW GWS F10 -02.2012",
+    "title": "BMW CWG F10",
     "background": "black",
     "layout": {
       "mode": "custom",
@@ -437,7 +437,7 @@
       {
         "id": "title",
         "type": "text",
-        "text": "BMW GWS F10 -02.2012",
+        "text": "BMW CWG F10",
         "x": 20,
         "y": 18,
         "w": 260,
@@ -515,9 +515,8 @@
       }
     ]
   },
-  "ui": {"ui": {
-    "module_title": "BMW GWS F10",
-    "module_subtitle": "≤02.2012",
+  "ui": {
+    "module_title": "BMW CWG F10",
     "gear_align": "center",
     "gear_font": "largest",
     "gear_x": 180,
