@@ -1,9 +1,9 @@
 {
-  "name": "BMW GWS F10 ≤02.2012",
+  "name": "BMW GWS F10 -02.2012",
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "4.3",
+  "version": "4.4",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
@@ -540,7 +540,7 @@
     ]
   },
   "ui": {
-    "module_title": "BMW GWS F10",
+    "module_title": "BMW GWS F10 -2012,02",
     "gear_align": "center",
     "gear_font": "largest",
     "gear_x": 180,
@@ -556,8 +556,8 @@
     "version_y": 248,
     "version_w": 62,
     "show_version": true,
-    "module_subtitle": "≤02.2012",
-    "part_number": "P/N BMW 9 239 504-01",
+    "module_subtitle": "-02.2012",
+    "part_number": " BMW 9 239 504-01",
     "part_number_x": 20,
     "part_number_y": 52,
     "part_number_w": 260
