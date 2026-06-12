@@ -3,16 +3,16 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "2.9",
+  "version": "3.0",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW CWG F10 selector module. Fixed M/S jump: removed S->D side transitions from held 0x197 byte2 0x7E/0x7F. Return from S uses short/down rules only.",
+  "description": "BMW CWG F10 selector module. M/S no-jump fixed. Return from M/S to D is allowed only by short-down lever 0x3E/0x3F, not by held side 0x7E/0x7F.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 1021,
     "state_interval_ms": 200,
-    "transition_cooldown_ms": 350,
+    "transition_cooldown_ms": 300,
     "initial_state": "P",
     "states": [
       {
@@ -410,8 +410,7 @@
   "actions": {},
   "screen": {
     "type": "selector_status",
-    "title": "BMW CWG F10
-              -2012/02",
+    "title": "BMW CWG F10",
     "background": "black",
     "layout": {
       "mode": "custom",
