@@ -485,8 +485,8 @@
     "module_title": "BMW CWG F10",
     "gear_align": "right",
     "gear_font": "largest",
-    "gear_x": 280,
-    "gear_y": 35,
+    "gear_x": 180,
+    "gear_y": 80,
     "gear_w": 180,
     "gear_h": 190,
     "show_buttons": false
