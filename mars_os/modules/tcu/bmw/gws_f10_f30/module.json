@@ -3,7 +3,7 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "4.4",
+  "version": "4.5",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
@@ -461,7 +461,7 @@
       {
         "id": "part_number",
         "type": "text",
-        "text": "P/N BMW 9 239 504-01",
+        "text": " BMW 9 239 504-01",
         "x": 20,
         "y": 52,
         "w": 260,
@@ -540,7 +540,7 @@
     ]
   },
   "ui": {
-    "module_title": "BMW GWS F10 -2012,02",
+    "module_title": "BMW GWS F10 ",
     "gear_align": "center",
     "gear_font": "largest",
     "gear_x": 180,
