@@ -516,8 +516,8 @@
     ]
   },
   "ui": {"ui": {
-     "module_title": "BMW GWS F10",
-    "module_subtitle": "≤02.2012"
+    "module_title": "BMW GWS F10",
+    "module_subtitle": "≤02.2012",
     "gear_align": "center",
     "gear_font": "largest",
     "gear_x": 180,
