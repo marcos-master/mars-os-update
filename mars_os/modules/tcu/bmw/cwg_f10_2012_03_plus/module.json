@@ -1,13 +1,13 @@
 {
-  "name": "BMW CWG F10 2012/03+",
+  "name": "BMW CWG F10 2012/03+ 9 296 899-01",
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "2.8",
+  "version": "2.9",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW CWG F10 2012/03+ selector module. Framed UI with big gear, POSITION caption, left-aligned JSON live_can link status, M/S idle display, temporary plus/minus sport indication, corrected S to D return logic, and transition debounce guard.",
+  "description": "BMW CWG F10 2012/03+ selector module, part number 9 296 899-01. Framed UI with big gear, POSITION caption, left-aligned JSON live_can link status, M/S idle display, temporary plus/minus sport indication, corrected S to D return logic, and transition debounce guard.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 1021,
