@@ -3,14 +3,14 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "1.0",
+  "version": "1.1",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
   "description": "BMW E60 electronic selector based on openinverter logic. Reads CAN ID 0x198 patterns, shows P/R/N/D/S, and handles sport plus/minus events.",
   "live_can": {
     "baud": 500000,
-    "state_frame_id": 0,
+    "state_frame_id": 466,
     "state_interval_ms": 200,
     "transition_cooldown_ms": 300,
     "initial_state": "P",
@@ -18,31 +18,31 @@
       {
         "name": "P",
         "frames": [
-          "50"
+          "E1 0C 8F 0F F0"
         ]
       },
       {
         "name": "R",
         "frames": [
-          "52"
+          "D2 0C 8F 0F F0"
         ]
       },
       {
         "name": "N",
         "frames": [
-          "4E"
+          "B4 0C 8F 0F F0"
         ]
       },
       {
         "name": "D",
         "frames": [
-          "44"
+          "78 0C 8F 0F F0"
         ]
       },
       {
         "name": "S",
         "frames": [
-          "53"
+          "78 0C 8F 0F F1"
         ]
       }
     ],
