@@ -1,0 +1,519 @@
+{
+  "name": "BMW CWG F10 2012/03+",
+  "type": "tcu",
+  "brand": "BMW",
+  "family": "GWS",
+  "version": "2.8",
+  "monitor_type": "live_can",
+  "transport": "CAN",
+  "baud": 500000,
+  "description": "BMW CWG F10 2012/03+ selector module. Framed UI with big gear, POSITION caption, left-aligned JSON live_can link status, M/S idle display, temporary plus/minus sport indication, corrected S to D return logic, and transition debounce guard.",
+  "live_can": {
+    "baud": 500000,
+    "state_frame_id": 1021,
+    "state_interval_ms": 200,
+    "transition_cooldown_ms": 220,
+    "initial_state": "P",
+    "states": [
+      {
+        "name": "P",
+        "frames": [
+          "F3 00 20 0C FF",
+          "6E 01 20 0C FF",
+          "D4 02 20 0C FF",
+          "49 03 20 0C FF",
+          "BD 04 20 0C FF",
+          "20 05 20 0C FF",
+          "9A 06 20 0C FF",
+          "07 07 20 0C FF",
+          "6F 08 20 0C FF",
+          "F2 09 20 0C FF",
+          "48 0A 20 0C FF",
+          "D5 0B 20 0C FF",
+          "21 0C 20 0C FF",
+          "BC 0D 20 0C FF",
+          "06 0E 20 0C FF"
+        ]
+      },
+      {
+        "name": "R",
+        "frames": [
+          "A3 00 40 0C FF",
+          "3E 01 40 0C FF",
+          "84 02 40 0C FF",
+          "19 03 40 0C FF",
+          "ED 04 40 0C FF",
+          "70 05 40 0C FF",
+          "CA 06 40 0C FF",
+          "57 07 40 0C FF",
+          "3F 08 40 0C FF",
+          "A2 09 40 0C FF",
+          "18 0A 40 0C FF",
+          "85 0B 40 0C FF",
+          "71 0C 40 0C FF",
+          "EC 0D 40 0C FF",
+          "56 0E 40 0C FF"
+        ]
+      },
+      {
+        "name": "N",
+        "frames": [
+          "93 00 60 0C FF",
+          "0E 01 60 0C FF",
+          "B4 02 60 0C FF",
+          "29 03 60 0C FF",
+          "DD 04 60 0C FF",
+          "40 05 60 0C FF",
+          "FA 06 60 0C FF",
+          "67 07 60 0C FF",
+          "0F 08 60 0C FF",
+          "92 09 60 0C FF",
+          "28 0A 60 0C FF",
+          "B5 0B 60 0C FF",
+          "41 0C 60 0C FF",
+          "DC 0D 60 0C FF",
+          "66 0E 60 0C FF"
+        ]
+      },
+      {
+        "name": "D",
+        "frames": [
+          "03 00 80 0C FF",
+          "9E 01 80 0C FF",
+          "24 02 80 0C FF",
+          "B9 03 80 0C FF",
+          "4D 04 80 0C FF",
+          "D0 05 80 0C FF",
+          "6A 06 80 0C FF",
+          "F7 07 80 0C FF",
+          "9F 08 80 0C FF",
+          "02 09 80 0C FF",
+          "B8 0A 80 0C FF",
+          "25 0B 80 0C FF",
+          "D1 0C 80 0C FF",
+          "4C 0D 80 0C FF",
+          "F6 0E 80 0C FF"
+        ]
+      },
+      {
+        "name": "S",
+        "frames": [
+          "A9 10 81 0C FF",
+          "34 11 81 0C FF",
+          "8E 12 81 0C FF",
+          "13 13 81 0C FF",
+          "E7 14 81 0C FF",
+          "7A 15 81 0C FF",
+          "C0 16 81 0C FF",
+          "5D 17 81 0C FF",
+          "35 18 81 0C FF",
+          "A8 19 81 0C FF",
+          "12 1A 81 0C FF",
+          "8F 1B 81 0C FF",
+          "7B 1C 81 0C FF",
+          "E6 1D 81 0C FF",
+          "5C 1E 81 0C FF"
+        ]
+      }
+    ],
+    "periodic_frames": [
+      {
+        "label": "status",
+        "id": 304,
+        "interval_ms": 500,
+        "frames": [
+          "05 F0 FC FF FF"
+        ]
+      },
+      {
+        "label": "sport_seq",
+        "id": 417,
+        "interval_ms": 100,
+        "frames": [
+          "FC C6 00 00 81",
+          "61 C7 00 00 81",
+          "09 C8 00 00 81",
+          "94 C9 00 00 81",
+          "2E CA 00 00 81",
+          "B3 CB 00 00 81",
+          "47 CC 00 00 81",
+          "DA CD 00 00 81",
+          "60 CE 00 00 81",
+          "95 C0 00 00 81",
+          "08 C1 00 00 81",
+          "B2 C2 00 00 81",
+          "2F C3 00 00 81",
+          "DB C4 00 00 81",
+          "46 C5 00 00 81"
+        ]
+      },
+      {
+        "label": "backlight",
+        "id": 514,
+        "interval_ms": 1000,
+        "frames": [
+          "FF 00"
+        ]
+      }
+    ],
+    "vars": [
+      {
+        "name": "sport_gear",
+        "value": 1
+      }
+    ],
+    "transitions": [
+      {
+        "label": "Park button",
+        "id": 407,
+        "byte3": 213,
+        "to_state": "P",
+        "hits": 2
+      },
+      {
+        "label": "Long down to D",
+        "id": 407,
+        "byte2": 78,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "Long down to D real",
+        "id": 407,
+        "byte2": 79,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "P to D short",
+        "from_state": "P",
+        "id": 407,
+        "byte2": 62,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "P to D short real",
+        "from_state": "P",
+        "id": 407,
+        "byte2": 63,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "R to N short",
+        "from_state": "R",
+        "id": 407,
+        "byte2": 62,
+        "to_state": "N",
+        "hits": 9
+      },
+      {
+        "label": "R to N short real",
+        "from_state": "R",
+        "id": 407,
+        "byte2": 63,
+        "to_state": "N",
+        "hits": 9
+      },
+      {
+        "label": "N to D short",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 62,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "N to D short real",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 63,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "S to D short",
+        "from_state": "S",
+        "id": 407,
+        "byte2": 62,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "S to D short real",
+        "from_state": "S",
+        "id": 407,
+        "byte2": 63,
+        "to_state": "D",
+        "hits": 9
+      },
+      {
+        "label": "Long up to R",
+        "id": 407,
+        "byte2": 46,
+        "to_state": "R",
+        "hits": 9
+      },
+      {
+        "label": "Long up to R real",
+        "id": 407,
+        "byte2": 47,
+        "to_state": "R",
+        "hits": 9
+      },
+      {
+        "label": "D to N short",
+        "from_state": "D",
+        "id": 407,
+        "byte2": 30,
+        "to_state": "N",
+        "hits": 9
+      },
+      {
+        "label": "D to N short real",
+        "from_state": "D",
+        "id": 407,
+        "byte2": 31,
+        "to_state": "N",
+        "hits": 9
+      },
+      {
+        "label": "N to R short",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 30,
+        "to_state": "R",
+        "hits": 9
+      },
+      {
+        "label": "N to R short real",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 31,
+        "to_state": "R",
+        "hits": 9
+      },
+      {
+        "label": "S to N short",
+        "from_state": "S",
+        "id": 407,
+        "byte2": 30,
+        "to_state": "N",
+        "hits": 9
+      },
+      {
+        "label": "S to N short real",
+        "from_state": "S",
+        "id": 407,
+        "byte2": 31,
+        "to_state": "N",
+        "hits": 9
+      },
+      {
+        "label": "D to S side",
+        "from_state": "D",
+        "id": 407,
+        "byte2": 126,
+        "to_state": "S",
+        "hits": 2
+      },
+      {
+        "label": "D to S side real",
+        "from_state": "D",
+        "id": 407,
+        "byte2": 127,
+        "to_state": "S",
+        "hits": 2
+      },
+      {
+        "label": "N to S side",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 126,
+        "to_state": "S",
+        "hits": 2
+      },
+      {
+        "label": "N to S side real",
+        "from_state": "N",
+        "id": 407,
+        "byte2": 127,
+        "to_state": "S",
+        "hits": 2
+      },
+      {
+        "label": "R to S side",
+        "from_state": "R",
+        "id": 407,
+        "byte2": 126,
+        "to_state": "S",
+        "hits": 2
+      },
+      {
+        "label": "R to S side real",
+        "from_state": "R",
+        "id": 407,
+        "byte2": 127,
+        "to_state": "S",
+        "hits": 2
+      },
+      {
+        "label": "S to D side",
+        "from_state": "S",
+        "id": 407,
+        "byte2": 126,
+        "to_state": "D",
+        "hits": 2
+      },
+      {
+        "label": "S to D side real",
+        "from_state": "S",
+        "id": 407,
+        "byte2": 127,
+        "to_state": "D",
+        "hits": 2
+      }
+    ],
+    "event_actions": [
+      {
+        "label": "Sport minus 5E",
+        "when_state": "S",
+        "id": 407,
+        "byte2": 94,
+        "action": "dec_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      },
+      {
+        "label": "Sport minus 5F real",
+        "when_state": "S",
+        "id": 407,
+        "byte2": 95,
+        "action": "dec_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      },
+      {
+        "label": "Sport plus 6E",
+        "when_state": "S",
+        "id": 407,
+        "byte2": 110,
+        "action": "inc_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      },
+      {
+        "label": "Sport plus 6F real",
+        "when_state": "S",
+        "id": 407,
+        "byte2": 111,
+        "action": "inc_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      }
+    ]
+  },
+  "menu": [],
+  "actions": {},
+  "screen": {
+    "type": "selector_status",
+    "title": "BMW CWG F10 2012/03+",
+    "background": "black",
+    "layout": {
+      "mode": "custom",
+      "width": 480,
+      "height": 272
+    },
+    "widgets": [
+      {
+        "id": "title",
+        "type": "text",
+        "text": "BMW CWG F10 2012/03+",
+        "x": 20,
+        "y": 18,
+        "w": 320,
+        "h": 40,
+        "font": "medium",
+        "align": "left",
+        "color": "white"
+      },
+      {
+        "id": "gear",
+        "type": "gear_value",
+        "source": "current_state",
+        "x": 180,
+        "y": 80,
+        "w": 200,
+        "h": 190,
+        "font": "largest",
+        "align": "center",
+        "color": "white"
+      },
+      {
+        "id": "sport_gear",
+        "type": "text",
+        "source": "sport_gear",
+        "visible_when_state": "S",
+        "format": "M{value}",
+        "idle_text": "M/S",
+        "plus_text": "+",
+        "minus_text": "-",
+        "momentary_ms": 700,
+        "x": 180,
+        "y": 205,
+        "w": 200,
+        "h": 50,
+        "font": "large",
+        "align": "center",
+        "color": "white"
+      },
+      {
+        "id": "position_caption",
+        "type": "text",
+        "text": "POSITION",
+        "x": 180,
+        "y": 172,
+        "w": 200,
+        "h": 30,
+        "font": "small",
+        "align": "center",
+        "color": "gray"
+      },
+      {
+        "id": "link_status",
+        "type": "link_status",
+        "source": "link_state",
+        "x": 34,
+        "y": 220,
+        "w": 170,
+        "h": 24,
+        "font": "small",
+        "align": "left",
+        "color": "white"
+      }
+    ]
+  },
+  "ui": {
+    "module_title": "BMW CWG F10 2012/03+",
+    "gear_align": "center",
+    "gear_font": "largest",
+    "gear_x": 180,
+    "gear_y": 80,
+    "gear_w": 200,
+    "gear_h": 190,
+    "show_buttons": false,
+    "position_label_x": 180,
+    "position_label_y": 172,
+    "position_label_w": 200,
+    "show_panels": true
+  }
+}
