@@ -3,7 +3,7 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "3.0",
+  "version": "3.1",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
@@ -426,7 +426,7 @@
   "actions": {},
   "screen": {
     "type": "selector_status",
-    "title": "BMW 9 296 899-01",
+    "title": "BMW CWG F10 2012/03+",
     "background": "black",
     "layout": {
       "mode": "custom",
@@ -437,7 +437,7 @@
       {
         "id": "title",
         "type": "text",
-        "text": "BMW 9 296 899-01",
+        "text": "BMW CWG F10 2012/03+",
         "x": 20,
         "y": 18,
         "w": 320,
@@ -445,6 +445,18 @@
         "font": "medium",
         "align": "left",
         "color": "white"
+      },
+      {
+        "id": "part_number",
+        "type": "text",
+        "text": "bmw 9 296 899-01",
+        "x": 20,
+        "y": 52,
+        "w": 260,
+        "h": 24,
+        "font": "small",
+        "align": "left",
+        "color": "gray"
       },
       {
         "id": "gear",
@@ -503,7 +515,7 @@
     ]
   },
   "ui": {
-    "module_title": "BMW 9 296 899-01",
+    "module_title": "BMW CWG F10 2012/03+",
     "gear_align": "center",
     "gear_font": "largest",
     "gear_x": 180,
