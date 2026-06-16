@@ -1,6 +1,7 @@
 {
   "modules": [
     "/modules/tcu/bmw/gws_f10_f30/module.json",
-    "/modules/tcu/bmw/cwg_f10_2012_03_plus/module.json"
+    "/modules/tcu/bmw/cwg_f10_2012_03_plus/module.json",
+    "/modules/tcu/bmw/gws_e60/module.json"
   ]
 }
