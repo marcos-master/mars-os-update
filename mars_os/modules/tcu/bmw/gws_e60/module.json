@@ -3,11 +3,11 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "1.2",
+  "version": "1.3",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW E60 electronic selector based on openinverter logic. Reads CAN ID 0x198 patterns, sends 0x4DD wake frames and 0x1D2 indicator frames with rolling counter, and handles sport plus/minus events.",
+  "description": "BMW E60 electronic selector based on openinverter logic. Reads CAN ID 0x198 patterns, sends 0x4DD wake frames, 0x130 terminal-15 keep-alive, and 0x1D2 indicator frames with rolling counter, and handles sport plus/minus events.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 466,
@@ -118,6 +118,14 @@
         "interval_ms": 100,
         "frames": [
           "00 01 02 03 00"
+        ]
+      },
+      {
+        "label": "terminal15_keepalive",
+        "id": 304,
+        "interval_ms": 500,
+        "frames": [
+          "45 40 21 8F FE"
         ]
       }
     ],
