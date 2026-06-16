@@ -3,11 +3,11 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "1.1",
+  "version": "1.2",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
-  "description": "BMW E60 electronic selector based on openinverter logic. Reads CAN ID 0x198 patterns, shows P/R/N/D/S, and handles sport plus/minus events.",
+  "description": "BMW E60 electronic selector based on openinverter logic. Reads CAN ID 0x198 patterns, sends 0x4DD wake frames and 0x1D2 indicator frames with rolling counter, and handles sport plus/minus events.",
   "live_can": {
     "baud": 500000,
     "state_frame_id": 466,
@@ -18,31 +18,106 @@
       {
         "name": "P",
         "frames": [
-          "E1 0C 8F 0F F0"
+          "E1 0C 08 0D CF",
+          "E1 0C 08 1D CF",
+          "E1 0C 08 2D CF",
+          "E1 0C 08 3D CF",
+          "E1 0C 08 4D CF",
+          "E1 0C 08 5D CF",
+          "E1 0C 08 6D CF",
+          "E1 0C 08 7D CF",
+          "E1 0C 08 8D CF",
+          "E1 0C 08 9D CF",
+          "E1 0C 08 AD CF",
+          "E1 0C 08 BD CF",
+          "E1 0C 08 CD CF",
+          "E1 0C 08 DD CF"
         ]
       },
       {
         "name": "R",
         "frames": [
-          "D2 0C 8F 0F F0"
+          "D2 0C 8F 0D F0",
+          "D2 0C 8F 1D F0",
+          "D2 0C 8F 2D F0",
+          "D2 0C 8F 3D F0",
+          "D2 0C 8F 4D F0",
+          "D2 0C 8F 5D F0",
+          "D2 0C 8F 6D F0",
+          "D2 0C 8F 7D F0",
+          "D2 0C 8F 8D F0",
+          "D2 0C 8F 9D F0",
+          "D2 0C 8F AD F0",
+          "D2 0C 8F BD F0",
+          "D2 0C 8F CD F0",
+          "D2 0C 8F DD F0"
         ]
       },
       {
         "name": "N",
         "frames": [
-          "B4 0C 8F 0F F0"
+          "B4 0C 08 0D CF",
+          "B4 0C 08 1D CF",
+          "B4 0C 08 2D CF",
+          "B4 0C 08 3D CF",
+          "B4 0C 08 4D CF",
+          "B4 0C 08 5D CF",
+          "B4 0C 08 6D CF",
+          "B4 0C 08 7D CF",
+          "B4 0C 08 8D CF",
+          "B4 0C 08 9D CF",
+          "B4 0C 08 AD CF",
+          "B4 0C 08 BD CF",
+          "B4 0C 08 CD CF",
+          "B4 0C 08 DD CF"
         ]
       },
       {
         "name": "D",
         "frames": [
-          "78 0C 8F 0F F0"
+          "78 0C 8F 0D F0",
+          "78 0C 8F 1D F0",
+          "78 0C 8F 2D F0",
+          "78 0C 8F 3D F0",
+          "78 0C 8F 4D F0",
+          "78 0C 8F 5D F0",
+          "78 0C 8F 6D F0",
+          "78 0C 8F 7D F0",
+          "78 0C 8F 8D F0",
+          "78 0C 8F 9D F0",
+          "78 0C 8F AD F0",
+          "78 0C 8F BD F0",
+          "78 0C 8F CD F0",
+          "78 0C 8F DD F0"
         ]
       },
       {
         "name": "S",
         "frames": [
-          "78 0C 8F 0F F1"
+          "78 5C 8F 0D F0",
+          "78 5C 8F 1D F0",
+          "78 5C 8F 2D F0",
+          "78 5C 8F 3D F0",
+          "78 5C 8F 4D F0",
+          "78 5C 8F 5D F0",
+          "78 5C 8F 6D F0",
+          "78 5C 8F 7D F0",
+          "78 5C 8F 8D F0",
+          "78 5C 8F 9D F0",
+          "78 5C 8F AD F0",
+          "78 5C 8F BD F0",
+          "78 5C 8F CD F0",
+          "78 5C 8F DD F0"
+        ]
+      }
+    ],
+    "periodic_frames": [
+      {
+        "label": "wake",
+        "id": 1245,
+        "interval_ms": 100,
+        "frames": [
+          "00 01 02 03 00"
         ]
       }
     ],
