@@ -1,9 +1,9 @@
 {
-  "name": "BMW CWG F10 2012/03+ 9 296 899-01",
+  "name": "BMW CWG F10\n2012/03+\n9 296 899-01",
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "3.1",
+  "version": "3.2",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
