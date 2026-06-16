@@ -1,9 +1,9 @@
 {
-  "name": "BMW CWG F10\n2012/03+\n9 296 899-01",
+  "name": "BMW CWG F10\n03.2012+\n BMW 9 296 899-01",
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "3.2",
+  "version": "3.3",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
@@ -12,7 +12,7 @@
     "baud": 500000,
     "state_frame_id": 1021,
     "state_interval_ms": 200,
-    "transition_cooldown_ms": 220,
+    "transition_cooldown_ms": 300,
     "initial_state": "P",
     "states": [
       {
@@ -359,18 +359,18 @@
         "hits": 2
       },
       {
-        "label": "S to D side",
+        "label": "S to D center",
         "from_state": "S",
         "id": 407,
-        "byte2": 126,
+        "byte2": 14,
         "to_state": "D",
         "hits": 2
       },
       {
-        "label": "S to D side real",
+        "label": "S to D center real",
         "from_state": "S",
         "id": 407,
-        "byte2": 127,
+        "byte2": 15,
         "to_state": "D",
         "hits": 2
       }
@@ -426,7 +426,7 @@
   "actions": {},
   "screen": {
     "type": "selector_status",
-    "title": "BMW CWG F10 2012/03+",
+    "title": "BMW CWG F10",
     "background": "black",
     "layout": {
       "mode": "custom",
@@ -437,23 +437,35 @@
       {
         "id": "title",
         "type": "text",
-        "text": "BMW CWG F10 2012/03+",
+        "text": "BMW CWG F10",
         "x": 20,
-        "y": 18,
-        "w": 320,
-        "h": 40,
+        "y": 12,
+        "w": 260,
+        "h": 24,
         "font": "medium",
         "align": "left",
         "color": "white"
       },
       {
+        "id": "subtitle",
+        "type": "text",
+        "text": "03.2012+",
+        "x": 20,
+        "y": 32,
+        "w": 260,
+        "h": 18,
+        "font": "small",
+        "align": "left",
+        "color": "gray"
+      },
+      {
         "id": "part_number",
         "type": "text",
-        "text": "bmw 9 296 899-01",
+        "text": " BMW 9 296 899-01",
         "x": 20,
         "y": 52,
         "w": 260,
-        "h": 24,
+        "h": 18,
         "font": "small",
         "align": "left",
         "color": "gray"
@@ -505,17 +517,30 @@
         "type": "link_status",
         "source": "link_state",
         "x": 34,
-        "y": 220,
+        "y": 222,
         "w": 170,
         "h": 24,
         "font": "small",
         "align": "left",
         "color": "white"
+      },
+      {
+        "id": "module_version",
+        "type": "text",
+        "source": "version",
+        "format": "v{value}",
+        "x": 410,
+        "y": 248,
+        "w": 62,
+        "h": 20,
+        "font": "small",
+        "align": "right",
+        "color": "gray"
       }
     ]
   },
   "ui": {
-    "module_title": "BMW CWG F10 2012/03+",
+    "module_title": "BMW CWG F10 ",
     "gear_align": "center",
     "gear_font": "largest",
     "gear_x": 180,
@@ -526,6 +551,15 @@
     "position_label_x": 180,
     "position_label_y": 172,
     "position_label_w": 200,
-    "show_panels": true
+    "show_panels": true,
+    "version_x": 410,
+    "version_y": 248,
+    "version_w": 62,
+    "show_version": true,
+    "module_subtitle": "03.2012+",
+    "part_number": " BMW 9 296 899-01",
+    "part_number_x": 20,
+    "part_number_y": 52,
+    "part_number_w": 260
   }
 }
