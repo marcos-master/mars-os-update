@@ -1,0 +1,310 @@
+{
+  "name": "BMW GWS E60\nSelector",
+  "type": "tcu",
+  "brand": "BMW",
+  "family": "GWS",
+  "version": "1.0",
+  "monitor_type": "live_can",
+  "transport": "CAN",
+  "baud": 500000,
+  "description": "BMW E60 electronic selector based on openinverter logic. Reads CAN ID 0x198 patterns, shows P/R/N/D/S, and handles sport plus/minus events.",
+  "live_can": {
+    "baud": 500000,
+    "state_frame_id": 0,
+    "state_interval_ms": 200,
+    "transition_cooldown_ms": 300,
+    "initial_state": "P",
+    "states": [
+      {
+        "name": "P",
+        "frames": [
+          "50"
+        ]
+      },
+      {
+        "name": "R",
+        "frames": [
+          "52"
+        ]
+      },
+      {
+        "name": "N",
+        "frames": [
+          "4E"
+        ]
+      },
+      {
+        "name": "D",
+        "frames": [
+          "44"
+        ]
+      },
+      {
+        "name": "S",
+        "frames": [
+          "53"
+        ]
+      }
+    ],
+    "vars": [
+      {
+        "name": "sport_gear",
+        "value": 1
+      }
+    ],
+    "transitions": [
+      {
+        "label": "Park button",
+        "id": 408,
+        "byte1": 0,
+        "byte2": 207,
+        "byte3": 197,
+        "to_state": "P",
+        "hits": 1
+      },
+      {
+        "label": "R plus park",
+        "id": 408,
+        "byte1": 32,
+        "byte2": 205,
+        "byte3": 197,
+        "to_state": "R",
+        "hits": 1
+      },
+      {
+        "label": "R plus",
+        "id": 408,
+        "byte1": 32,
+        "byte2": 205,
+        "byte3": 192,
+        "to_state": "R",
+        "hits": 1
+      },
+      {
+        "label": "R to N",
+        "id": 408,
+        "byte1": 48,
+        "byte2": 204,
+        "byte3": 192,
+        "to_state": "N",
+        "hits": 1
+      },
+      {
+        "label": "D to N",
+        "id": 408,
+        "byte1": 16,
+        "byte2": 206,
+        "byte3": 192,
+        "to_state": "N",
+        "hits": 1
+      },
+      {
+        "label": "D plus",
+        "id": 408,
+        "byte1": 64,
+        "byte2": 203,
+        "byte3": 192,
+        "to_state": "D",
+        "hits": 1
+      },
+      {
+        "label": "D plus park",
+        "id": 408,
+        "byte1": 64,
+        "byte2": 203,
+        "byte3": 197,
+        "to_state": "D",
+        "hits": 1
+      },
+      {
+        "label": "Selector idle to D",
+        "from_state": "S",
+        "id": 408,
+        "byte1": 0,
+        "byte2": 207,
+        "byte3": 192,
+        "to_state": "D",
+        "hits": 1
+      },
+      {
+        "label": "Sport button to S",
+        "id": 408,
+        "byte1": 112,
+        "byte2": 200,
+        "byte3": 192,
+        "to_state": "S",
+        "hits": 1
+      },
+      {
+        "label": "Sport minus to S",
+        "id": 408,
+        "byte1": 80,
+        "byte2": 202,
+        "byte3": 192,
+        "to_state": "S",
+        "hits": 1
+      },
+      {
+        "label": "Sport plus to S",
+        "id": 408,
+        "byte1": 96,
+        "byte2": 201,
+        "byte3": 192,
+        "to_state": "S",
+        "hits": 1
+      }
+    ],
+    "event_actions": [
+      {
+        "label": "Sport minus",
+        "when_state": "S",
+        "id": 408,
+        "byte1": 80,
+        "byte2": 202,
+        "byte3": 192,
+        "action": "dec_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      },
+      {
+        "label": "Sport plus",
+        "when_state": "S",
+        "id": 408,
+        "byte1": 96,
+        "byte2": 201,
+        "byte3": 192,
+        "action": "inc_var",
+        "var": "sport_gear",
+        "min": 1,
+        "max": 8,
+        "hits": 1
+      }
+    ]
+  },
+  "menu": [],
+  "actions": {},
+  "screen": {
+    "type": "selector_status",
+    "title": "BMW GWS E60",
+    "background": "black",
+    "layout": {
+      "mode": "custom",
+      "width": 480,
+      "height": 272
+    },
+    "widgets": [
+      {
+        "id": "title",
+        "type": "text",
+        "text": "BMW GWS E60",
+        "x": 20,
+        "y": 12,
+        "w": 260,
+        "h": 24,
+        "font": "medium",
+        "align": "left",
+        "color": "white"
+      },
+      {
+        "id": "subtitle",
+        "type": "text",
+        "text": "openinverter logic",
+        "x": 20,
+        "y": 32,
+        "w": 260,
+        "h": 18,
+        "font": "small",
+        "align": "left",
+        "color": "gray"
+      },
+      {
+        "id": "gear",
+        "type": "gear_value",
+        "source": "current_state",
+        "x": 180,
+        "y": 80,
+        "w": 200,
+        "h": 190,
+        "font": "largest",
+        "align": "center",
+        "color": "white"
+      },
+      {
+        "id": "sport_gear",
+        "type": "text",
+        "source": "sport_gear",
+        "visible_when_state": "S",
+        "format": "M{value}",
+        "idle_text": "M/S",
+        "plus_text": "+",
+        "minus_text": "-",
+        "momentary_ms": 700,
+        "x": 180,
+        "y": 205,
+        "w": 200,
+        "h": 50,
+        "font": "large",
+        "align": "center",
+        "color": "white"
+      },
+      {
+        "id": "position_caption",
+        "type": "text",
+        "text": "POSITION",
+        "x": 180,
+        "y": 172,
+        "w": 200,
+        "h": 30,
+        "font": "small",
+        "align": "center",
+        "color": "gray"
+      },
+      {
+        "id": "link_status",
+        "type": "link_status",
+        "source": "link_state",
+        "x": 34,
+        "y": 222,
+        "w": 170,
+        "h": 24,
+        "font": "small",
+        "align": "left",
+        "color": "white"
+      },
+      {
+        "id": "module_version",
+        "type": "text",
+        "source": "version",
+        "format": "v{value}",
+        "x": 410,
+        "y": 248,
+        "w": 62,
+        "h": 20,
+        "font": "small",
+        "align": "right",
+        "color": "gray"
+      }
+    ]
+  },
+  "ui": {
+    "module_title": "BMW GWS E60",
+    "module_subtitle": "openinverter logic",
+    "gear_align": "center",
+    "gear_font": "largest",
+    "gear_x": 180,
+    "gear_y": 80,
+    "gear_w": 200,
+    "gear_h": 190,
+    "show_buttons": false,
+    "position_label_x": 180,
+    "position_label_y": 172,
+    "position_label_w": 200,
+    "show_panels": true,
+    "version_x": 410,
+    "version_y": 248,
+    "version_w": 62,
+    "show_version": true
+  }
+}
