@@ -3,7 +3,7 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "1.5",
+  "version": "1.6",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
@@ -167,6 +167,16 @@
       {
         "label": "R plus unlock held from N",
         "from_state": "N",
+        "id": 408,
+        "byte1": 32,
+        "byte2": 205,
+        "byte3": 144,
+        "to_state": "R",
+        "hits": 1
+      },
+      {
+        "label": "R plus unlock held from D",
+        "from_state": "D",
         "id": 408,
         "byte1": 32,
         "byte2": 205,
