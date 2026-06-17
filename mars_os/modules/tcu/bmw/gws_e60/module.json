@@ -3,7 +3,7 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "2.3",
+  "version": "2.4",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
@@ -215,20 +215,12 @@
         "hits": 1
       },
       {
-        "label": "R plus",
-        "id": 408,
-        "byte1": 32,
-        "byte2": 205,
-        "byte3": 192,
-        "to_state": "R",
-        "hits": 1
-      },
-      {
-        "label": "R to N",
+        "label": "R to N with unlock",
+        "from_state": "R",
         "id": 408,
         "byte1": 48,
         "byte2": 204,
-        "byte3": 192,
+        "byte3": 144,
         "to_state": "N",
         "hits": 1
       },
