@@ -3,7 +3,7 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "1.3",
+  "version": "3.4",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
@@ -12,7 +12,7 @@
     "baud": 500000,
     "state_frame_id": 466,
     "state_interval_ms": 200,
-    "transition_cooldown_ms": 300,
+    "transition_cooldown_ms": 0,
     "initial_state": "P",
     "states": [
       {
@@ -94,20 +94,20 @@
       {
         "name": "S",
         "frames": [
-          "78 5C 8F 0D F0",
-          "78 5C 8F 1D F0",
-          "78 5C 8F 2D F0",
-          "78 5C 8F 3D F0",
-          "78 5C 8F 4D F0",
-          "78 5C 8F 5D F0",
-          "78 5C 8F 6D F0",
-          "78 5C 8F 7D F0",
-          "78 5C 8F 8D F0",
-          "78 5C 8F 9D F0",
-          "78 5C 8F AD F0",
-          "78 5C 8F BD F0",
-          "78 5C 8F CD F0",
-          "78 5C 8F DD F0"
+          "78 0C 8F 0D F1",
+          "78 0C 8F 1D F1",
+          "78 0C 8F 2D F1",
+          "78 0C 8F 3D F1",
+          "78 0C 8F 4D F1",
+          "78 0C 8F 5D F1",
+          "78 0C 8F 6D F1",
+          "78 0C 8F 7D F1",
+          "78 0C 8F 8D F1",
+          "78 0C 8F 9D F1",
+          "78 0C 8F AD F1",
+          "78 0C 8F BD F1",
+          "78 0C 8F CD F1",
+          "78 0C 8F DD F1"
         ]
       }
     ],
@@ -137,7 +137,7 @@
     ],
     "transitions": [
       {
-        "label": "Park button",
+        "label": "Park button pressed",
         "id": 408,
         "byte1": 0,
         "byte2": 207,
@@ -146,7 +146,36 @@
         "hits": 1
       },
       {
-        "label": "R plus park",
+        "label": "Park button pressed 90",
+        "id": 408,
+        "byte1": 0,
+        "byte2": 207,
+        "byte3": 144,
+        "to_state": "P",
+        "hits": 1
+      },
+      {
+        "label": "Park from M/S button",
+        "from_state": "S",
+        "id": 408,
+        "byte1": 112,
+        "byte2": 200,
+        "byte3": 197,
+        "to_state": "P",
+        "hits": 1
+      },
+      {
+        "label": "Not pressed keep park",
+        "from_state": "P",
+        "id": 408,
+        "byte1": 0,
+        "byte2": 207,
+        "byte3": 192,
+        "to_state": "P",
+        "hits": 1
+      },
+      {
+        "label": "R plus park position",
         "id": 408,
         "byte1": 32,
         "byte2": 205,
@@ -155,7 +184,7 @@
         "hits": 1
       },
       {
-        "label": "R plus",
+        "label": "R plus position",
         "id": 408,
         "byte1": 32,
         "byte2": 205,
@@ -164,7 +193,7 @@
         "hits": 1
       },
       {
-        "label": "R to N",
+        "label": "R to Neutral",
         "id": 408,
         "byte1": 48,
         "byte2": 204,
@@ -173,7 +202,7 @@
         "hits": 1
       },
       {
-        "label": "D to N",
+        "label": "D to Neutral",
         "id": 408,
         "byte1": 16,
         "byte2": 206,
@@ -182,7 +211,7 @@
         "hits": 1
       },
       {
-        "label": "D plus",
+        "label": "D plus pressed",
         "id": 408,
         "byte1": 64,
         "byte2": 203,
@@ -191,7 +220,7 @@
         "hits": 1
       },
       {
-        "label": "D plus park",
+        "label": "D plus Park pressed",
         "id": 408,
         "byte1": 64,
         "byte2": 203,
@@ -200,17 +229,7 @@
         "hits": 1
       },
       {
-        "label": "Selector idle to D",
-        "from_state": "S",
-        "id": 408,
-        "byte1": 0,
-        "byte2": 207,
-        "byte3": 192,
-        "to_state": "D",
-        "hits": 1
-      },
-      {
-        "label": "Sport button to S",
+        "label": "S-M-D button pressed",
         "id": 408,
         "byte1": 112,
         "byte2": 200,
@@ -219,7 +238,7 @@
         "hits": 1
       },
       {
-        "label": "Sport minus to S",
+        "label": "Sport Minus state",
         "id": 408,
         "byte1": 80,
         "byte2": 202,
@@ -228,7 +247,7 @@
         "hits": 1
       },
       {
-        "label": "Sport plus to S",
+        "label": "Sport Plus state",
         "id": 408,
         "byte1": 96,
         "byte2": 201,
@@ -310,6 +329,19 @@
         "y": 80,
         "w": 200,
         "h": 190,
+        "font": "largest",
+        "align": "center",
+        "color": "white"
+      },
+      {
+        "id": "gear_ms_override",
+        "type": "text",
+        "visible_when_state": "S",
+        "text": "M/S",
+        "x": 180,
+        "y": 80,
+        "w": 200,
+        "h": 120,
         "font": "largest",
         "align": "center",
         "color": "white"
