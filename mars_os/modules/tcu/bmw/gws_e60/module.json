@@ -3,7 +3,7 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "2.0",
+  "version": "2.1",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
@@ -155,13 +155,13 @@
         "hits": 1
       },
       {
-        "label": "R plus unlock held from P",
+        "label": "R first step unlock from P",
         "from_state": "P",
         "id": 408,
         "byte1": 32,
         "byte2": 205,
         "byte3": 144,
-        "to_state": "R",
+        "to_state": "N",
         "hits": 1
       },
       {
@@ -230,13 +230,13 @@
         "hits": 1
       },
       {
-        "label": "D plus unlock held from P",
+        "label": "D first step unlock from P",
         "from_state": "P",
         "id": 408,
         "byte1": 64,
         "byte2": 203,
         "byte3": 144,
-        "to_state": "D",
+        "to_state": "N",
         "hits": 1
       },
       {
