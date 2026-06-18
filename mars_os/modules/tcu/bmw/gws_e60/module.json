@@ -3,7 +3,7 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "3.8",
+  "version": "4.0",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
@@ -137,7 +137,7 @@
     ],
     "transitions": [
       {
-        "label": "Park button pressed",
+        "label": "Park button",
         "id": 408,
         "byte1": 0,
         "byte2": 207,
@@ -146,32 +146,53 @@
         "hits": 1
       },
       {
-        "label": "Park button pressed 90",
-        "id": 408,
-        "byte1": 0,
-        "byte2": 207,
-        "byte3": 144,
-        "to_state": "P",
-        "hits": 1
-      },
-      {
-        "label": "Park from M/S button",
-        "from_state": "S",
-        "id": 408,
-        "byte1": 112,
-        "byte2": 200,
-        "byte3": 197,
-        "to_state": "P",
-        "hits": 1
-      },
-      {
-        "label": "Not pressed keep park",
+        "label": "Keep park idle",
         "from_state": "P",
         "id": 408,
         "byte1": 0,
         "byte2": 207,
         "byte3": 192,
         "to_state": "P",
+        "hits": 1
+      },
+      {
+        "label": "P first step up to N",
+        "from_state": "P",
+        "id": 408,
+        "byte1": 48,
+        "byte2": 204,
+        "byte3": 144,
+        "to_state": "N",
+        "hits": 1
+      },
+      {
+        "label": "P first step down to N",
+        "from_state": "P",
+        "id": 408,
+        "byte1": 16,
+        "byte2": 206,
+        "byte3": 144,
+        "to_state": "N",
+        "hits": 1
+      },
+      {
+        "label": "P second step up to R",
+        "from_state": "P",
+        "id": 408,
+        "byte1": 32,
+        "byte2": 205,
+        "byte3": 144,
+        "to_state": "R",
+        "hits": 1
+      },
+      {
+        "label": "P second step down to D",
+        "from_state": "P",
+        "id": 408,
+        "byte1": 128,
+        "byte2": 199,
+        "byte3": 144,
+        "to_state": "D",
         "hits": 1
       },
       {
@@ -184,7 +205,18 @@
         "hits": 1
       },
       {
-        "label": "R plus position",
+        "label": "Neutral to R unlock",
+        "from_state": "N",
+        "id": 408,
+        "byte1": 32,
+        "byte2": 205,
+        "byte3": 144,
+        "to_state": "R",
+        "hits": 1
+      },
+      {
+        "label": "Neutral to R",
+        "from_state": "N",
         "id": 408,
         "byte1": 32,
         "byte2": 205,
@@ -193,7 +225,18 @@
         "hits": 1
       },
       {
+        "label": "R to Neutral unlock",
+        "from_state": "R",
+        "id": 408,
+        "byte1": 48,
+        "byte2": 204,
+        "byte3": 144,
+        "to_state": "N",
+        "hits": 1
+      },
+      {
         "label": "R to Neutral",
+        "from_state": "R",
         "id": 408,
         "byte1": 48,
         "byte2": 204,
@@ -203,6 +246,7 @@
       },
       {
         "label": "D to Neutral",
+        "from_state": "D",
         "id": 408,
         "byte1": 16,
         "byte2": 206,
@@ -211,7 +255,17 @@
         "hits": 1
       },
       {
-        "label": "D plus pressed",
+        "label": "Neutral second step down to D",
+        "from_state": "N",
+        "id": 408,
+        "byte1": 128,
+        "byte2": 199,
+        "byte3": 144,
+        "to_state": "D",
+        "hits": 1
+      },
+      {
+        "label": "Drive pressed",
         "id": 408,
         "byte1": 64,
         "byte2": 203,
@@ -220,7 +274,7 @@
         "hits": 1
       },
       {
-        "label": "D plus Park pressed",
+        "label": "Drive pressed with park",
         "id": 408,
         "byte1": 64,
         "byte2": 203,
@@ -229,7 +283,7 @@
         "hits": 1
       },
       {
-        "label": "S-M-D button pressed",
+        "label": "Enter M/S from D",
         "from_state": "D",
         "id": 408,
         "byte1": 112,
