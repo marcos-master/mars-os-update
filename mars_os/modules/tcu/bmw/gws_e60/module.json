@@ -3,7 +3,7 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "2.9",
+  "version": "3.0",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
@@ -141,6 +141,16 @@
         "id": 408,
         "byte1": 0,
         "byte2": 207,
+        "byte3": 197,
+        "to_state": "P",
+        "hits": 1
+      },
+      {
+        "label": "Park from M/S button",
+        "from_state": "S",
+        "id": 408,
+        "byte1": 112,
+        "byte2": 200,
         "byte3": 197,
         "to_state": "P",
         "hits": 1
