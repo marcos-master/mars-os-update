@@ -3,7 +3,7 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "2.7",
+  "version": "2.8",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
@@ -316,11 +316,10 @@
         "byte1": 80,
         "byte2": 202,
         "byte3": 192,
-        "action": "set_var",
+        "action": "dec_var",
         "var": "sport_gear",
-        "value": 0,
-        "display_text": "-",
-        "momentary_ms": 700,
+        "min": 1,
+        "max": 8,
         "hits": 1
       },
       {
@@ -330,11 +329,10 @@
         "byte1": 96,
         "byte2": 201,
         "byte3": 192,
-        "action": "set_var",
+        "action": "inc_var",
         "var": "sport_gear",
-        "value": 0,
-        "display_text": "+",
-        "momentary_ms": 700,
+        "min": 1,
+        "max": 8,
         "hits": 1
       }
     ]
