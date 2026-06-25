@@ -1,0 +1,167 @@
+{
+  "name": "BMW BSD Coolant Pump",
+  "type": "ecu",
+  "brand": "BMW",
+  "family": "BSD",
+  "version": "0.1",
+  "transport": "BSD",
+  "protocol": "BMW_BSD",
+  "status": "definition_only_until_bsd_executor",
+  "description": "BMW electric coolant pump test module over BSD. Intended for bench testing wakeup, identification, live status, fault readout, and commanded speed control.",
+
+  "connection": {
+    "bus": "BSD",
+    "protocols": ["BMW_BSD"],
+    "line": "BSD",
+    "notes": "BMW BSD single-wire communication used by intelligent peripherals such as electric coolant pumps, alternators, and battery sensors. Real execution requires BSD transport support in MARS OS."
+  },
+
+  "menu": [
+    { "title": "Wake Pump", "action": "wake_pump" },
+    { "title": "Read Info", "action": "read_info" },
+    { "title": "Read Status", "action": "read_status" },
+    { "title": "Read Faults", "action": "read_faults" },
+    { "title": "Clear Faults", "action": "clear_faults" },
+    { "title": "Pump 20%", "action": "pump_20" },
+    { "title": "Pump 40%", "action": "pump_40" },
+    { "title": "Pump 60%", "action": "pump_60" },
+    { "title": "Pump 80%", "action": "pump_80" },
+    { "title": "Pump 100%", "action": "pump_100" },
+    { "title": "Pump Stop", "action": "pump_stop" },
+    { "title": "Auto Sweep", "action": "auto_sweep" },
+    { "title": "Command Sender", "action": "command_sender" }
+  ],
+
+  "actions": {
+    "wake_pump": {
+      "title": "Wake Pump",
+      "steps": [
+        { "type": "bsd_open", "label": "Open BSD interface" },
+        { "type": "bsd_wake", "label": "Wake coolant pump", "target": "coolant_pump", "result_store": "wake_result" },
+        { "type": "show_result", "source": "wake_result" }
+      ]
+    },
+
+    "read_info": {
+      "title": "Read Pump Info",
+      "steps": [
+        { "type": "run_action", "action": "wake_pump" },
+        { "type": "bsd_read_identification", "target": "coolant_pump", "result_store": "pump_info" },
+        { "type": "show_result", "source": "pump_info" }
+      ]
+    },
+
+    "read_status": {
+      "title": "Read Live Status",
+      "steps": [
+        { "type": "run_action", "action": "wake_pump" },
+        { "type": "bsd_read_status", "target": "coolant_pump", "result_store": "pump_status" },
+        { "type": "show_result", "source": "pump_status" }
+      ]
+    },
+
+    "read_faults": {
+      "title": "Read Faults",
+      "steps": [
+        { "type": "run_action", "action": "wake_pump" },
+        { "type": "bsd_read_faults", "target": "coolant_pump", "result_store": "pump_faults" },
+        { "type": "show_result", "source": "pump_faults" }
+      ]
+    },
+
+    "clear_faults": {
+      "title": "Clear Faults",
+      "steps": [
+        { "type": "run_action", "action": "wake_pump" },
+        { "type": "confirm", "text": "Clear coolant pump faults?" },
+        { "type": "bsd_clear_faults", "target": "coolant_pump", "result_store": "clear_faults_result" },
+        { "type": "show_result", "source": "clear_faults_result" }
+      ]
+    },
+
+    "pump_20": {
+      "title": "Run Pump 20%",
+      "steps": [
+        { "type": "run_action", "action": "wake_pump" },
+        { "type": "bsd_set_output", "target": "coolant_pump", "mode": "duty_percent", "value": 20, "result_store": "pump_cmd_result" },
+        { "type": "show_result", "source": "pump_cmd_result" }
+      ]
+    },
+
+    "pump_40": {
+      "title": "Run Pump 40%",
+      "steps": [
+        { "type": "run_action", "action": "wake_pump" },
+        { "type": "bsd_set_output", "target": "coolant_pump", "mode": "duty_percent", "value": 40, "result_store": "pump_cmd_result" },
+        { "type": "show_result", "source": "pump_cmd_result" }
+      ]
+    },
+
+    "pump_60": {
+      "title": "Run Pump 60%",
+      "steps": [
+        { "type": "run_action", "action": "wake_pump" },
+        { "type": "bsd_set_output", "target": "coolant_pump", "mode": "duty_percent", "value": 60, "result_store": "pump_cmd_result" },
+        { "type": "show_result", "source": "pump_cmd_result" }
+      ]
+    },
+
+    "pump_80": {
+      "title": "Run Pump 80%",
+      "steps": [
+        { "type": "run_action", "action": "wake_pump" },
+        { "type": "bsd_set_output", "target": "coolant_pump", "mode": "duty_percent", "value": 80, "result_store": "pump_cmd_result" },
+        { "type": "show_result", "source": "pump_cmd_result" }
+      ]
+    },
+
+    "pump_100": {
+      "title": "Run Pump 100%",
+      "steps": [
+        { "type": "run_action", "action": "wake_pump" },
+        { "type": "bsd_set_output", "target": "coolant_pump", "mode": "duty_percent", "value": 100, "result_store": "pump_cmd_result" },
+        { "type": "show_result", "source": "pump_cmd_result" }
+      ]
+    },
+
+    "pump_stop": {
+      "title": "Stop Pump",
+      "steps": [
+        { "type": "run_action", "action": "wake_pump" },
+        { "type": "bsd_set_output", "target": "coolant_pump", "mode": "duty_percent", "value": 0, "result_store": "pump_stop_result" },
+        { "type": "show_result", "source": "pump_stop_result" }
+      ]
+    },
+
+    "auto_sweep": {
+      "title": "Auto Sweep",
+      "steps": [
+        { "type": "run_action", "action": "wake_pump" },
+        { "type": "show_message", "text": "Pump will step through 20, 40, 60, 80, 100 percent." },
+        { "type": "bsd_set_output", "target": "coolant_pump", "mode": "duty_percent", "value": 20, "delay_ms": 2500 },
+        { "type": "bsd_set_output", "target": "coolant_pump", "mode": "duty_percent", "value": 40, "delay_ms": 2500 },
+        { "type": "bsd_set_output", "target": "coolant_pump", "mode": "duty_percent", "value": 60, "delay_ms": 2500 },
+        { "type": "bsd_set_output", "target": "coolant_pump", "mode": "duty_percent", "value": 80, "delay_ms": 2500 },
+        { "type": "bsd_set_output", "target": "coolant_pump", "mode": "duty_percent", "value": 100, "delay_ms": 2500 },
+        { "type": "bsd_set_output", "target": "coolant_pump", "mode": "duty_percent", "value": 0, "result_store": "auto_sweep_result" },
+        { "type": "show_result", "source": "auto_sweep_result" }
+      ]
+    },
+
+    "command_sender": {
+      "title": "Command Sender",
+      "steps": [
+        { "type": "run_action", "action": "wake_pump" },
+        { "type": "input_hex_string", "label": "BSD Command", "store": "bsd_cmd" },
+        { "type": "bsd_send_receive", "target": "coolant_pump", "command_from": "bsd_cmd", "response_store": "bsd_cmd_response" },
+        { "type": "show_result", "source": "bsd_cmd_response" }
+      ]
+    }
+  },
+
+  "safety": {
+    "write_enabled": false,
+    "max_continuous_run_seconds": 30,
+    "notes": "Bench test only. Do not run dry pump for extended time. Real activation depends on BSD executor implementation and verified signal timing."
+  }
+}
