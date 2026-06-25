@@ -3,7 +3,7 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "4.2",
+  "version": "4.3",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
@@ -199,7 +199,7 @@
         "byte2": 206,
         "byte3": 192,
         "to_state": "N",
-        "hits": 1
+        "hits": 2
       },
       {
         "label": "Drive pressed",
