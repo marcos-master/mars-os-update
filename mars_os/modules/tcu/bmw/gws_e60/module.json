@@ -399,7 +399,7 @@
   },
   "ui": {
     "module_title": "BMW GWS E60",
-    "module_subtitle": "openinverter logic",
+   
     "gear_align": "center",
     "gear_font": "largest",
     "gear_x": 180,
