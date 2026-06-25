@@ -3,7 +3,7 @@
   "type": "tcu",
   "brand": "BMW",
   "family": "GWS",
-  "version": "4.3",
+  "version": "4.5",
   "monitor_type": "live_can",
   "transport": "CAN",
   "baud": 500000,
@@ -94,20 +94,20 @@
       {
         "name": "S",
         "frames": [
-          "78 5C 8F 0D F0",
-          "78 5C 8F 1D F0",
-          "78 5C 8F 2D F0",
-          "78 5C 8F 3D F0",
-          "78 5C 8F 4D F0",
-          "78 5C 8F 5D F0",
-          "78 5C 8F 6D F0",
-          "78 5C 8F 7D F0",
-          "78 5C 8F 8D F0",
-          "78 5C 8F 9D F0",
-          "78 5C 8F AD F0",
-          "78 5C 8F BD F0",
-          "78 5C 8F CD F0",
-          "78 5C 8F DD F0"
+          "78 5C 8F 0D F1",
+          "78 5C 8F 1D F1",
+          "78 5C 8F 2D F1",
+          "78 5C 8F 3D F1",
+          "78 5C 8F 4D F1",
+          "78 5C 8F 5D F1",
+          "78 5C 8F 6D F1",
+          "78 5C 8F 7D F1",
+          "78 5C 8F 8D F1",
+          "78 5C 8F 9D F1",
+          "78 5C 8F AD F1",
+          "78 5C 8F BD F1",
+          "78 5C 8F CD F1",
+          "78 5C 8F DD F1"
         ]
       }
     ],
